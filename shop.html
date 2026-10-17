@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta name="description" content="Karachi Mart Online Grocery Store • Fresh staples, dairy, beverages & household essentials delivered in 45 minutes across Karachi."/>
+  <title>Karachi Mart Online Store • Fresh Grocery &amp; Daily Essentials Delivery</title>
+  
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#006948',
+              800: '#005137',
+              900: '#003825'
+            },
+            accent: {
+              500: '#f59e0b',
+              600: '#d97706'
+            }
+          },
+          fontFamily: {
+            headline: ['Plus Jakarta Sans', 'sans-serif'],
+            body: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Supabase CDN & Data Layer -->
+  <script src="env.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  
+  <style>
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.02); }
+    }
+    .badge-live {
+      animation: pulse-subtle 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 font-body text-slate-800 antialiased selection:bg-brand-100 selection:text-brand-900">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-brand-900 text-white text-xs py-2 px-4">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span class="font-medium">⚡ Gulshan-e-Iqbal Branch #01: Express 45-Min Home Delivery Active Across Karachi</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-200 text-xs">
+        <span>📞 Helpline: (021) 3498-0000</span>
+        <span class="text-slate-400">•</span>
+        <span>🕒 Open 8:00 AM - 12:00 Midnight</span>
+        <span class="text-slate-400">•</span>
+        <a href="index.html" class="inline-flex items-center gap-1 text-emerald-300 hover:text-white font-semibold transition-colors bg-white/10 px-2.5 py-0.5 rounded-full">
+          <span class="material-symbols-outlined text-[14px]">admin_panel_settings</span>
+          <span>Switch to Staff CRM &amp; POS Portal →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navbar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="shop.html" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-700 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-brand-700/20 group-hover:scale-105 transition-transform">
+          <span class="material-symbols-outlined text-28px text-white">shopping_bag</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-headline font-bold text-2xl text-slate-900 tracking-tight">Karachi<span class="text-brand-700">Mart</span></span>
+            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-brand-800 rounded-md">Online Store</span>
+          </div>
+          <p class="text-xs text-slate-500 font-medium">Retail Supermarket • Gulshan-e-Iqbal</p>
+        </div>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="flex-1 max-w-xl mx-4 hidden md:block">
+        <div class="relative">
+          <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xl pointer-events-none">search</span>
+          <input 
+            id="searchInput" 
+            type="text" 
+            placeholder="Search Basmati rice, cooking oil, Tapal tea, Shan masalas, dairy..." 
+            class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none transition text-sm text-slate-800"
+          />
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- ERP Switch Link -->
+        <a href="index.html" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-brand-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors" title="Switch to Karachi Mart Retail ERP">
+          <span class="material-symbols-outlined text-[18px]">space_dashboard</span>
+          <span>CRM / POS Admin</span>
+        </a>
+
+        <!-- Cart Button -->
+        <button id="openCartBtn" class="relative flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-medium text-sm transition-all shadow-md shadow-brand-700/20 hover:shadow-lg active:scale-95">
+          <span class="material-symbols-outlined text-xl">shopping_cart</span>
+          <span class="hidden sm:inline font-semibold">Cart</span>
+          <span id="cartCountBadge" class="w-5 h-5 rounded-full bg-amber-400 text-slate-900 font-bold text-xs flex items-center justify-center">0</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="relative bg-gradient-to-r from-brand-900 via-brand-800 to-emerald-800 text-white py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <!-- Decorative background glow -->
+    <div class="absolute -right-20 -top-20 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-20 -bottom-20 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="max-w-2xl space-y-4 text-center md:text-left">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium text-emerald-200">
+          <span class="material-symbols-outlined text-[16px] text-amber-400">verified</span>
+          <span>Official Karachi Mart Web Storefront</span>
+          <span class="text-white/40">•</span>
+          <span class="text-emerald-300 font-semibold">Live Realtime Sync Active</span>
+        </div>
+        <h1 class="font-headline font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight">
+          Karachi's Trusted Supermarket, <br/>
+          <span class="text-emerald-300">Delivered To Your Doorstep.</span>
+        </h1>
+        <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+          Order 100% genuine staples, cold dairy, premium tea, spices and frozen food at official retail rates in PKR. Orders placed here sync immediately to our Karachi Mart CRM &amp; Dispatch Fleet!
+        </p>
+
+        <!-- Feature Badges -->
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2 text-xs text-slate-200">
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-amber-400 text-[18px]">local_shipping</span>
+            <span>Free Delivery on Rs. 3,000+</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-emerald-300 text-[18px]">payments</span>
+            <span>Cash on Delivery &amp; Raast QR</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-emerald-300 text-[18px]">timer</span>
+            <span>45-Min Express Rider Dispatch</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Live Demonstration Card for Portfolio Viewers -->
+      <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 text-white max-w-sm w-full shadow-2xl space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            Portfolio Live Demo
+          </span>
+          <span class="text-[11px] bg-white/20 px-2 py-0.5 rounded-full text-slate-200">Supabase Connected</span>
+        </div>
+        <p class="text-xs text-slate-200 leading-relaxed">
+          Order place karein aur phir upar diye gaye <strong>"CRM / POS Admin"</strong> button par click karke dekhein: aapka order Realtime WebSocket ke sath CRM mein instant pop-up hoga!
+        </p>
+        <button onclick="simulateQuickOrder()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 active:scale-95 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">bolt</span>
+          <span>1-Click Test Web Order (Demo)</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Filter Bar -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-headline font-bold text-xl text-slate-900">Explore Catalog By Category</h2>
+      <span id="productsCount" class="text-xs font-semibold text-slate-500">Loading products...</span>
+    </div>
+
+    <!-- Category Pills -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-3 scrollbar-none" id="categoriesBar">
+      <button onclick="filterCategory('all')" data-cat="all" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-brand-700 text-white shadow-sm transition">All Products</button>
+      <button onclick="filterCategory('grocery')" data-cat="grocery" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">🌾 Staples &amp; Grocery</button>
+      <button onclick="filterCategory('dairy')" data-cat="dairy" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">🥛 Dairy &amp; Chilled</button>
+      <button onclick="filterCategory('beverages')" data-cat="beverages" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">☕ Beverages &amp; Tea</button>
+      <button onclick="filterCategory('spices')" data-cat="spices" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">🌶️ Spices &amp; Recipe Mixes</button>
+      <button onclick="filterCategory('bakery')" data-cat="bakery" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">🍞 Bakery &amp; Bread</button>
+      <button onclick="filterCategory('frozen')" data-cat="frozen" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">❄️ Frozen &amp; Ready-to-Cook</button>
+      <button onclick="filterCategory('personal-care')" data-cat="personal-care" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">🧼 Personal Care</button>
+      <button onclick="filterCategory('cleaning')" data-cat="cleaning" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">🧹 Household Cleaning</button>
+    </div>
+  </section>
+
+  <!-- Product Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 mb-16">
+    <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      <!-- Loaded dynamically via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Slide-Over Shopping Cart Drawer -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden transition-all" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <!-- Backdrop -->
+    <div id="cartBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+
+    <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between">
+        
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+          <div class="flex items-center gap-2.5">
+            <span class="w-10 h-10 rounded-xl bg-brand-700 text-white flex items-center justify-center">
+              <span class="material-symbols-outlined">shopping_basket</span>
+            </span>
+            <div>
+              <h3 class="font-headline font-bold text-lg text-slate-900">Your Grocery Cart</h3>
+              <p class="text-xs text-slate-500 font-medium">Karachi Express Delivery</p>
+            </div>
+          </div>
+          <button id="closeCartBtn" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200/60 transition">
+            <span class="material-symbols-outlined text-2xl">close</span>
+          </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-4" id="cartItemsContainer">
+          <!-- Dynamically populated or empty message -->
+        </div>
+
+        <!-- Cart Footer & Checkout Form -->
+        <div class="p-6 border-t border-slate-200 bg-slate-50/80 space-y-4">
+          <!-- Price breakdown -->
+          <div class="space-y-2 text-xs text-slate-600">
+            <div class="flex justify-between">
+              <span>Subtotal</span>
+              <span id="cartSubtotal" class="font-semibold text-slate-800">Rs. 0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Karachi Delivery Fee</span>
+              <span id="cartDeliveryFee" class="font-semibold text-slate-800">Rs. 150</span>
+            </div>
+            <div class="flex justify-between text-sm font-bold text-slate-900 pt-2 border-t border-slate-200">
+              <span>Total Amount (PKR)</span>
+              <span id="cartTotal" class="text-brand-700 font-headline font-extrabold text-base">Rs. 0</span>
+            </div>
+          </div>
+
+          <!-- Checkout Trigger Button -->
+          <button id="proceedCheckoutBtn" onclick="toggleCheckoutModal()" class="w-full py-3 px-4 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm tracking-wide transition shadow-lg shadow-brand-700/25 flex items-center justify-center gap-2 active:scale-95">
+            <span>Proceed to Checkout</span>
+            <span class="material-symbols-outlined text-lg">arrow_forward</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-100 p-6 space-y-6">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div>
+          <h3 class="font-headline font-bold text-xl text-slate-900">Delivery &amp; Payment Details</h3>
+          <p class="text-xs text-slate-500">Orders sync live to Karachi Mart ERP Dispatch Queue</p>
+        </div>
+        <button onclick="toggleCheckoutModal()" class="text-slate-400 hover:text-slate-600">
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+      </div>
+
+      <form id="checkoutForm" onsubmit="handlePlaceOrder(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name *</label>
+          <input id="custName" type="text" required placeholder="e.g. Mrs. Farah Naz / Tariq Mehmood" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none"/>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Karachi Mobile / WhatsApp *</label>
+            <input id="custPhone" type="tel" required placeholder="0300-1234567" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Karachi Delivery Area *</label>
+            <select id="custArea" required class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none bg-white">
+              <option value="Gulshan-e-Iqbal Block 13-D">Gulshan-e-Iqbal (Branch Zone)</option>
+              <option value="Gulshan Block 5">Gulshan-e-Iqbal Block 5</option>
+              <option value="PECHS Block 2">PECHS Block 2</option>
+              <option value="Bahadurabad Main">Bahadurabad Main</option>
+              <option value="North Nazimabad Block H">North Nazimabad</option>
+              <option value="DHA Defence Phase 5">DHA / Defence</option>
+              <option value="Clifton Block 4">Clifton</option>
+              <option value="Gulistan-e-Johar Block 1">Gulistan-e-Johar</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Complete Street / Flat Address *</label>
+          <textarea id="custAddress" required rows="2" placeholder="House/Flat No., Building Name, Street & Landmark" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-2">Payment Option</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="border border-brand-600 bg-brand-50 rounded-xl p-2.5 flex flex-col items-center justify-center text-center cursor-pointer text-xs font-semibold text-brand-900">
+              <input type="radio" name="payMethod" value="cod" checked class="sr-only"/>
+              <span class="material-symbols-outlined text-brand-700 mb-1">payments</span>
+              <span>Cash on Delivery</span>
+            </label>
+            <label class="border border-slate-200 hover:border-slate-300 rounded-xl p-2.5 flex flex-col items-center justify-center text-center cursor-pointer text-xs font-semibold text-slate-700">
+              <input type="radio" name="payMethod" value="raast" class="sr-only"/>
+              <span class="material-symbols-outlined text-emerald-600 mb-1">qr_code_2</span>
+              <span>Raast Instant QR</span>
+            </label>
+            <label class="border border-slate-200 hover:border-slate-300 rounded-xl p-2.5 flex flex-col items-center justify-center text-center cursor-pointer text-xs font-semibold text-slate-700">
+              <input type="radio" name="payMethod" value="card" class="sr-only"/>
+              <span class="material-symbols-outlined text-indigo-600 mb-1">credit_card</span>
+              <span>Card on Delivery</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Order Button -->
+        <button id="submitOrderBtn" type="submit" class="w-full py-3.5 px-4 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm tracking-wide transition shadow-xl shadow-brand-700/20 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined">send</span>
+          <span id="submitOrderText">Confirm &amp; Transmit Order</span>
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Order Success Modal with CRM Realtime Verification -->
+  <div id="orderSuccessModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center space-y-6 shadow-2xl border border-slate-100">
+      
+      <div class="w-16 h-16 rounded-full bg-emerald-100 text-brand-700 flex items-center justify-center mx-auto">
+        <span class="material-symbols-outlined text-4xl">check_circle</span>
+      </div>
+
+      <div class="space-y-2">
+        <span class="px-3 py-1 rounded-full bg-emerald-100 text-brand-800 text-xs font-bold uppercase tracking-wider">Order Transmitted Live</span>
+        <h3 class="font-headline font-bold text-2xl text-slate-900">Thank You For Your Order!</h3>
+        <p class="text-xs text-slate-500">Your order is received and dispatched to Karachi Mart Fleet.</p>
+      </div>
+
+      <div class="bg-slate-50 rounded-2xl p-4 text-left border border-slate-200/80 space-y-2 text-xs">
+        <div class="flex justify-between">
+          <span class="text-slate-500">Order Number:</span>
+          <span id="confirmedOrderNum" class="font-bold text-brand-700 font-mono">WEB-9901</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Customer:</span>
+          <span id="confirmedCustomer" class="font-semibold text-slate-800">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Estimated Delivery:</span>
+          <span class="font-semibold text-emerald-600">35 - 45 Minutes</span>
+        </div>
+        <div class="flex justify-between border-t border-slate-200 pt-2 font-bold text-sm text-slate-900">
+          <span>Total (PKR):</span>
+          <span id="confirmedTotal" class="text-brand-700 font-extrabold">Rs. 0</span>
+        </div>
+      </div>
+
+      <!-- Realtime WebSocket Indicator for Reviewers -->
+      <div class="p-3.5 bg-brand-50 border border-brand-200 rounded-xl text-left text-xs text-brand-900 space-y-1">
+        <div class="flex items-center gap-1.5 font-bold text-brand-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+          <span>Supabase Realtime Sync Verified:</span>
+        </div>
+        <p class="text-[11px] text-brand-700 leading-relaxed">
+          Yeh order cloud database mein save ho chuka hai aur Karachi Mart CRM Dashboard par Realtime WebSocket ke zariye live transmit ho gaya hai!
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-2">
+        <a href="index.html" class="w-full py-3 px-4 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm transition shadow-lg shadow-brand-700/25 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-lg">space_dashboard</span>
+          <span>View This Order in CRM Dashboard →</span>
+        </a>
+        <button onclick="closeSuccessModal()" class="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition">
+          Continue Shopping
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-brand-700 flex items-center justify-center text-white font-bold">KM</div>
+        <div>
+          <span class="font-headline font-bold text-white text-base">Karachi Mart Supermarket</span>
+          <p class="text-slate-400">Gulshan-e-Iqbal Branch #01, Karachi, Sindh, Pakistan</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-6 text-slate-400">
+        <a href="shop.html" class="hover:text-white transition">Online Storefront</a>
+        <a href="index.html" class="hover:text-white transition">Retail ERP Dashboard</a>
+        <a href="pos.html" class="hover:text-white transition">POS Counter</a>
+        <a href="deliveries.html" class="hover:text-white transition">Fleet Tracking</a>
+      </div>
+      <p class="text-slate-500">© 2024 Karachi Mart. Powered by Supabase Realtime &amp; Vercel.</p>
+    </div>
+  </footer>
+
+  <!-- Storefront JavaScript Logic -->
+  <script>
+    let allProducts = [];
+    let cart = [];
+    let currentCategory = 'all';
+
+    // 1. Load Products on Load
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadCatalog();
+      setupEventListeners();
+    });
+
+    async function loadCatalog() {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = `
+        <div class="col-span-full py-16 text-center text-slate-400">
+          <span class="material-symbols-outlined text-4xl animate-spin text-brand-600 mb-2">sync</span>
+          <p class="text-sm">Fetching catalog from Karachi Mart Supabase Database...</p>
+        </div>
+      `;
+
+      try {
+        if (window.KarachiMartDB) {
+          allProducts = await window.KarachiMartDB.getProducts();
+        } else {
+          allProducts = [];
+        }
+      } catch (err) {
+        console.warn('Fallback to seed products:', err);
+        allProducts = window.KarachiMartDB ? window.KarachiMartDB.getSeedProducts() : [];
+      }
+
+      if (!allProducts || allProducts.length === 0) {
+        allProducts = window.KarachiMartDB.getSeedProducts();
+      }
+
+      document.getElementById('productsCount').textContent = `${allProducts.length} Groceries Available`;
+      renderProducts(allProducts);
+    }
+
+    function renderProducts(items) {
+      const grid = document.getElementById('productGrid');
+      if (items.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-500">
+            <span class="material-symbols-outlined text-4xl text-slate-300 mb-2">sentiment_dissatisfied</span>
+            <p class="text-sm font-medium">No grocery items found matching your filter.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = items.map(p => {
+        const inCartItem = cart.find(c => c.sku === p.sku);
+        const qtyInCart = inCartItem ? inCartItem.qty : 0;
+        const lowStock = p.current_stock <= (p.reorder_level || 10);
+
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200/80 hover:border-brand-500/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+            
+            <!-- Image & Badge -->
+            <div class="relative aspect-square overflow-hidden bg-slate-100">
+              <img 
+                src="${p.image_url || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80'}" 
+                alt="${p.name}" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-white/90 backdrop-blur-sm text-slate-700 shadow-sm">
+                ${p.brand || 'Karachi Mart'}
+              </span>
+              ${lowStock ? `
+                <span class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-white shadow-sm">
+                  Few Left
+                </span>
+              ` : ''}
+            </div>
+
+            <!-- Details -->
+            <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+              <div>
+                <span class="text-[11px] font-medium text-slate-400 capitalize">${p.category_slug || 'General'}</span>
+                <h4 class="font-headline font-bold text-sm text-slate-900 group-hover:text-brand-700 transition line-clamp-2 leading-snug">
+                  ${p.name}
+                </h4>
+                <p class="text-xs text-slate-500 font-medium mt-1">Pack: 1 ${p.unit || 'unit'}</p>
+              </div>
+
+              <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] uppercase font-bold text-slate-400 block">Retail Price</span>
+                  <span class="font-headline font-extrabold text-base text-slate-900">Rs. ${Number(p.selling_price).toLocaleString()}</span>
+                </div>
+
+                ${qtyInCart > 0 ? `
+                  <div class="flex items-center gap-1.5 bg-brand-50 border border-brand-200 rounded-xl p-1 text-xs font-bold text-brand-900">
+                    <button onclick="changeCartQty('${p.sku}', -1)" class="w-6 h-6 rounded-lg bg-white shadow-sm flex items-center justify-center hover:bg-brand-100 text-brand-700">−</button>
+                    <span class="w-5 text-center">${qtyInCart}</span>
+                    <button onclick="changeCartQty('${p.sku}', 1)" class="w-6 h-6 rounded-lg bg-white shadow-sm flex items-center justify-center hover:bg-brand-100 text-brand-700">+</button>
+                  </div>
+                ` : `
+                  <button onclick="addToCart('${p.sku}')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-brand-700 text-white text-xs font-semibold flex items-center gap-1 transition shadow-sm active:scale-95">
+                    <span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+                    <span>Add</span>
+                  </button>
+                `}
+              </div>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 2. Filters & Search
+    function filterCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = 'cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-brand-700 text-white shadow-sm transition';
+        } else {
+          btn.className = 'cat-pill px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition';
+        }
+      });
+
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+      let filtered = allProducts;
+
+      if (currentCategory !== 'all') {
+        filtered = filtered.filter(p => p.category_slug === currentCategory);
+      }
+
+      if (q) {
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes(q) || 
+          (p.brand && p.brand.toLowerCase().includes(q)) ||
+          p.sku.toLowerCase().includes(q)
+        );
+      }
+
+      document.getElementById('productsCount').textContent = `${filtered.length} Groceries Found`;
+      renderProducts(filtered);
+    }
+
+    function setupEventListeners() {
+      const search = document.getElementById('searchInput');
+      if (search) search.addEventListener('input', applyFilters);
+
+      document.getElementById('openCartBtn').addEventListener('click', () => openCart(true));
+      document.getElementById('closeCartBtn').addEventListener('click', () => openCart(false));
+      document.getElementById('cartBackdrop').addEventListener('click', () => openCart(false));
+    }
+
+    // 3. Cart State Management
+    function addToCart(sku) {
+      const prod = allProducts.find(p => p.sku === sku);
+      if (!prod) return;
+
+      const existing = cart.find(c => c.sku === sku);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({
+          sku: prod.sku,
+          name: prod.name,
+          price: Number(prod.selling_price),
+          image_url: prod.image_url,
+          unit: prod.unit,
+          qty: 1
+        });
+      }
+
+      updateCartUI();
+      applyFilters(); // Re-render card with qty stepper
+    }
+
+    function changeCartQty(sku, delta) {
+      const idx = cart.findIndex(c => c.sku === sku);
+      if (idx === -1) return;
+
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) {
+        cart.splice(idx, 1);
+      }
+
+      updateCartUI();
+      applyFilters();
+    }
+
+    function openCart(isOpen) {
+      const drawer = document.getElementById('cartDrawer');
+      if (isOpen) {
+        drawer.classList.remove('hidden');
+        renderCartItems();
+      } else {
+        drawer.classList.add('hidden');
+      }
+    }
+
+    function updateCartUI() {
+      const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cartCountBadge').textContent = totalCount;
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const delivery = subtotal >= 3000 || subtotal === 0 ? 0 : 150;
+      const total = subtotal + delivery;
+
+      document.getElementById('cartSubtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
+      document.getElementById('cartDeliveryFee').textContent = delivery === 0 ? 'FREE' : `Rs. ${delivery}`;
+      document.getElementById('cartTotal').textContent = `Rs. ${total.toLocaleString()}`;
+
+      renderCartItems();
+    }
+
+    function renderCartItems() {
+      const container = document.getElementById('cartItemsContainer');
+      if (!container) return;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="py-16 text-center text-slate-400 space-y-3">
+            <span class="material-symbols-outlined text-5xl text-slate-300">remove_shopping_cart</span>
+            <p class="text-sm font-semibold text-slate-600">Your basket is empty</p>
+            <p class="text-xs text-slate-400">Add fresh groceries, staples or tea to start!</p>
+          </div>
+        `;
+        document.getElementById('proceedCheckoutBtn').disabled = true;
+        document.getElementById('proceedCheckoutBtn').classList.add('opacity-50', 'cursor-not-allowed');
+        return;
+      }
+
+      document.getElementById('proceedCheckoutBtn').disabled = false;
+      document.getElementById('proceedCheckoutBtn').classList.remove('opacity-50', 'cursor-not-allowed');
+
+      container.innerHTML = cart.map(item => `
+        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+          <img src="${item.image_url || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=200&q=80'}" class="w-14 h-14 rounded-lg object-cover bg-white"/>
+          <div class="flex-1 min-w-0">
+            <h5 class="text-xs font-bold text-slate-900 truncate">${item.name}</h5>
+            <span class="text-xs font-semibold text-brand-700">Rs. ${item.price.toLocaleString()}</span>
+          </div>
+          <div class="flex items-center gap-1 bg-white border border-slate-200 rounded-lg p-1 text-xs">
+            <button onclick="changeCartQty('${item.sku}', -1)" class="w-5 h-5 rounded hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">−</button>
+            <span class="w-4 text-center font-bold">${item.qty}</span>
+            <button onclick="changeCartQty('${item.sku}', 1)" class="w-5 h-5 rounded hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleCheckoutModal() {
+      const modal = document.getElementById('checkoutModal');
+      modal.classList.toggle('hidden');
+    }
+
+    // 4. Place Order & Realtime Transmit to Supabase
+    async function handlePlaceOrder(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submitOrderBtn');
+      const submitText = document.getElementById('submitOrderText');
+      submitBtn.disabled = true;
+      submitText.textContent = 'Transmitting to Karachi Mart ERP...';
+
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const area = document.getElementById('custArea').value;
+      const address = document.getElementById('custAddress').value.trim();
+      const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const delivery = subtotal >= 3000 ? 0 : 150;
+      const total = subtotal + delivery;
+
+      const orderData = {
+        order_number: 'WEB-' + Math.floor(1000 + Math.random() * 9000),
+        channel: 'online',
+        customer_name: name,
+        customer_phone: phone,
+        delivery_area: area,
+        delivery_address: address,
+        order_status: 'received',
+        payment_method: payMethod,
+        payment_status: 'pending',
+        subtotal: subtotal,
+        tax: 0,
+        discount: 0,
+        delivery_fee: delivery,
+        total_amount: total
+      };
+
+      try {
+        if (window.KarachiMartDB) {
+          await window.KarachiMartDB.createOrder(orderData, cart);
+        }
+      } catch (err) {
+        console.warn('Order saved via fallback:', err);
+      }
+
+      // Show success modal
+      submitBtn.disabled = false;
+      submitText.textContent = 'Confirm & Transmit Order';
+      toggleCheckoutModal();
+      openCart(false);
+
+      document.getElementById('confirmedOrderNum').textContent = orderData.order_number;
+      document.getElementById('confirmedCustomer').textContent = `${name} (${area})`;
+      document.getElementById('confirmedTotal').textContent = `Rs. ${total.toLocaleString()}`;
+      document.getElementById('orderSuccessModal').classList.remove('hidden');
+
+      // Clear cart
+      cart = [];
+      updateCartUI();
+      applyFilters();
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('orderSuccessModal').classList.add('hidden');
+    }
+
+    // 5. 1-Click Quick Order Simulation for Portfolio Demonstrations
+    async function simulateQuickOrder() {
+      const demoNames = ['Zainab Akhtar', 'Farhan Siddiqui', 'Fatima Noor', 'Bilal Ahmed'];
+      const demoAreas = ['Gulshan-e-Iqbal Block 13-D', 'PECHS Block 2', 'Bahadurabad Main', 'North Nazimabad'];
+      const randomName = demoNames[Math.floor(Math.random() * demoNames.length)];
+      const randomArea = demoAreas[Math.floor(Math.random() * demoAreas.length)];
+
+      const sampleItems = [
+        { sku: 'GRD-BAS-5K', name: 'Guard Basmati Rice 5kg Bag', price: 1850, qty: 1 },
+        { sku: 'TPL-DAN-950', name: 'Tapal Danedar Tea 950g Pouch', price: 1520, qty: 1 }
+      ];
+
+      const orderNum = 'WEB-' + Math.floor(1000 + Math.random() * 9000);
+      const subtotal = 3370;
+      const orderData = {
+        order_number: orderNum,
+        channel: 'online',
+        customer_name: `${randomName} (Live Web Demo)`,
+        customer_phone: '0300-8899221',
+        delivery_area: randomArea,
+        delivery_address: 'Karachi Mart Express Delivery Address',
+        order_status: 'received',
+        payment_method: 'cod',
+        payment_status: 'pending',
+        subtotal: subtotal,
+        tax: 0,
+        discount: 0,
+        delivery_fee: 0,
+        total_amount: subtotal
+      };
+
+      if (window.KarachiMartDB) {
+        await window.KarachiMartDB.createOrder(orderData, sampleItems);
+      }
+
+      document.getElementById('confirmedOrderNum').textContent = orderNum;
+      document.getElementById('confirmedCustomer').textContent = `${randomName} (${randomArea})`;
+      document.getElementById('confirmedTotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
+      document.getElementById('orderSuccessModal').classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>

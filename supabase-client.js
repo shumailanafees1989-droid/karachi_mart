@@ -26,9 +26,12 @@
 
   let supabaseClient = null;
 
+  const DEFAULT_SUPABASE_URL = 'https://ovgsiytewrkakknpumhx.supabase.co';
+  const DEFAULT_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92Z3NpeXRld3JrYWtrbnB1bWh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNzk3MTksImV4cCI6MjEwNzY1NTcxOX0.D8fReASLItbv9VdPuDWRMxY2pTNS4EY2iP8MVNpHTE8';
+
   function getConfig() {
-    const url = localStorage.getItem('KM_SUPABASE_URL') || (window.ENV && window.ENV.SUPABASE_URL) || '';
-    const key = localStorage.getItem('KM_SUPABASE_ANON_KEY') || (window.ENV && window.ENV.SUPABASE_ANON_KEY) || '';
+    const url = localStorage.getItem('KM_SUPABASE_URL') || (window.ENV && window.ENV.SUPABASE_URL) || DEFAULT_SUPABASE_URL;
+    const key = localStorage.getItem('KM_SUPABASE_ANON_KEY') || (window.ENV && window.ENV.SUPABASE_ANON_KEY) || DEFAULT_SUPABASE_ANON_KEY;
     const isReal = url && !url.includes('your-project-ref') && key && !key.includes('your-anon-key');
     return { url, key, isReal };
   }
