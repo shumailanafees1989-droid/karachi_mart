@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_dashboard" name="shell-type"/>
+  <title>Deliveries &amp; Fleet Tracker • Karachi Mart Retail ERP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #bccac0; border-radius: 4px; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#68dba9", "on-primary-fixed-variant": "#005137", "on-error": "#ffffff", "surface-bright": "#f8f9ff",
+            "secondary-fixed-dim": "#bec6e0", "on-tertiary": "#ffffff", "surface-dim": "#cbdbf5", "tertiary-fixed": "#ffdcc3",
+            "primary-container": "#00855d", "primary-fixed-dim": "#68dba9", "on-tertiary-container": "#fffbff", "on-background": "#0b1c30",
+            "primary-fixed": "#85f8c4", "secondary": "#565e74", "surface-container-lowest": "#ffffff", "outline": "#6d7a72",
+            "surface-tint": "#006c4a", "error": "#ba1a1a", "surface-container-low": "#eff4ff", "on-surface": "#0b1c30",
+            "on-surface-variant": "#3d4a42", "background": "#f8f9ff", "on-tertiary-fixed": "#2f1500", "error-container": "#ffdad6",
+            "surface": "#f8f9ff", "outline-variant": "#bccac0", "tertiary-fixed-dim": "#ffb77d", "surface-container": "#e5eeff",
+            "on-secondary-fixed": "#131b2e", "on-secondary-container": "#5c647a", "on-secondary-ffffff": "#ffffff", "primary": "#006948",
+            "on-tertiary-fixed-variant": "#6e3900", "tertiary": "#8d4b00", "inverse-on-surface": "#eaf1ff", "secondary-fixed": "#dae2fd",
+            "tertiary-container": "#b15f00", "on-primary": "#ffffff", "surface-container-high": "#dce9ff", "inverse-surface": "#213145",
+            "on-error-container": "#93000a", "on-primary-fixed": "#002114", "on-secondary-fixed-variant": "#3f465c", "on-primary-container": "#f5fff7",
+            "surface-container-highest": "#d3e4fe", "surface-variant": "#d3e4fe", "secondary-container": "#dae2fd"
+          },
+          "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+          "spacing": { "space-xl": "2rem", "space-sm": "0.5rem", "gutter": "1rem", "margin-desktop": "2rem", "space-xs": "0.25rem", "space-lg": "1.25rem", "margin": "1rem", "space-md": "0.75rem", "gutter-desktop": "1.5rem" },
+          "fontFamily": {
+            "headline-md": ["Plus Jakarta Sans"], "label-md": ["Inter"], "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "body-sm": ["Inter"],
+            "body-md": ["Inter"], "table-cell": ["Inter"], "label-sm": ["Inter"],
+            "metric-stat": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
+  <!-- Sidebar -->
+  <aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col h-full overflow-hidden">
+      <div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest">
+        <img alt="Karachi Mart Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ug5ATdt8sty-Z57VHDlmyJcZPV3abtXzkTylBvd7_p4bj26fclv8F50uTjNLuhsmCQhZqU0-K1C2fHwegN-j8TA7a_vJaCTrw7GHsJXmvA39YU2CCO_-5hN7vPtGurOFqHggS88hGxB0bukOaELDvoYpjLx0ARiv-FuK8g23x1FI5jefe1p2uu3yH9Ncx3J7HBIPR7ehlnqC8-I06kPf0AFrNz9yfilWIzS8kB-R_fiSYXsREFRCmc19xa"/>
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm text-primary leading-tight tracking-tight">Karachi Mart</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Retail ERP • Pakistan</span>
+        </div>
+      </div>
+      <div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-md">
+        <nav class="space-y-space-xs">
+          <div class="px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Main</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="overview-dashboard" href="index.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+              <span class="font-body-md text-body-md">Overview Dashboard</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="pos-sales" href="pos.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">point_of_sale</span>
+              <span class="font-body-md text-body-md">POS &amp; Sales</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">20 New</span>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="inventory-stock" href="inventory.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+              <span class="font-body-md text-body-md">Inventory &amp; Stock</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">4 Low</span>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Procurement &amp; Ops</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="supplier-purchases" href="suppliers.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+              <span class="font-body-md text-body-md">Supplier Purchases</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="cash-register-closing" href="cash-register.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+              <span class="font-body-md text-body-md">Cash Register &amp; Closing</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="deliveries-fleet" href="deliveries.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">two_wheeler</span>
+              <span class="font-body-md text-body-md">Deliveries &amp; Fleet</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">6 Active</span>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Management</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="customers-loyalty" href="customers.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">loyalty</span>
+              <span class="font-body-md text-body-md">Customers &amp; Loyalty</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="staff-attendance" href="staff.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">badge</span>
+              <span class="font-body-md text-body-md">Staff &amp; Attendance</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="expenses-pl" href="expenses.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+              <span class="font-body-md text-body-md">Expenses &amp; P&amp;L</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="reports-analytics" href="reports.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">analytics</span>
+              <span class="font-body-md text-body-md">Reports &amp; Analytics</span>
+            </div>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Developer &amp; System</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="database-supabase-schema" href="database.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">database</span>
+              <span class="font-body-md text-body-md">Database &amp; Schema</span>
+            </div>
+          </a>
+        </nav>
+      </div>
+      <div class="p-space-md bg-surface-container-lowest">
+        <div class="p-space-sm bg-surface-container-low rounded-xl flex items-center justify-between">
+          <div class="flex items-center gap-space-sm">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+            </span>
+            <div class="flex flex-col">
+              <span class="font-label-sm text-label-sm text-on-surface font-semibold">Fleet Dispatch Hub</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">8 Riders Online • KHI</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[18px] text-primary">two_wheeler</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main View -->
+  <div class="pl-72">
+    <!-- Header -->
+    <header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-xl z-40 px-space-lg flex items-center justify-between gap-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <div class="flex items-center gap-space-sm min-w-max">
+        <span class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container-low text-on-surface">
+          <span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+          <span class="font-label-md text-label-md font-semibold">Central Karachi Delivery Depot (Gulshan #01)</span>
+        </span>
+      </div>
+      <div class="flex items-center gap-space-sm">
+        <div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low">
+          <span class="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+          <span class="font-label-sm text-label-sm text-on-surface font-medium">WebSocket Dispatch: <strong class="text-primary font-semibold">CONNECTED</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="w-full pt-16 bg-surface min-h-screen px-space-lg py-space-lg space-y-space-lg">
+      <!-- Title & Dispatch Command Strip -->
+      <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-md">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm font-semibold uppercase">Express Fleet Engine</span>
+            <span class="text-secondary font-label-sm">• Karachi Metropolitan Dispatch</span>
+          </div>
+          <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Deliveries &amp; Fleet Tracker</h1>
+          <p class="font-body-md text-body-md text-on-surface-variant">Live tracking of 18 online supermarket orders and 8 motorbike couriers across Karachi sectors.</p>
+        </div>
+        <div class="flex items-center gap-space-sm">
+          <button onclick="refreshOrders()" class="p-2 rounded-lg bg-surface-container text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Sync live orders">
+            <span class="material-symbols-outlined text-[20px]">refresh</span>
+          </button>
+          <button onclick="openAssignModal()" class="px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container transition-colors flex items-center gap-1.5 shadow-md">
+            <span class="material-symbols-outlined text-[18px]">add_task</span>
+            <span>Assign Rider to Order</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Fleet KPI Strip -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-secondary block mb-1">Pending Web Orders</span>
+          <span class="font-metric-stat text-metric-stat text-tertiary font-bold">18 Orders</span>
+          <div class="mt-2 text-body-sm text-secondary">Awaiting packing / staging</div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-secondary block mb-1">Active Couriers on Road</span>
+          <span class="font-metric-stat text-metric-stat text-primary font-bold">8 Riders</span>
+          <div class="mt-2 text-body-sm text-secondary">Gulshan, PECHS, DHA, Nazimabad</div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-secondary block mb-1">Today's Total Online Revenue</span>
+          <span class="font-metric-stat text-metric-stat text-on-surface font-bold">Rs. 86,350</span>
+          <div class="mt-2 text-body-sm text-secondary">COD + Raast Pre-paid</div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-secondary block mb-1">Average Delivery Time</span>
+          <span class="font-metric-stat text-metric-stat text-primary font-bold">34 Mins</span>
+          <div class="mt-2 text-body-sm text-primary font-semibold">96% On-Time SLA</div>
+        </div>
+      </div>
+
+      <!-- Karachi Delivery Zone Pills -->
+      <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center gap-2 overflow-x-auto">
+        <span class="font-label-md text-secondary shrink-0">Karachi Zones:</span>
+        <button onclick="filterZone('All', this)" class="zone-pill px-3 py-1.5 rounded-full font-label-md bg-primary-container text-on-primary-container font-semibold">All (18)</button>
+        <button onclick="filterZone('Gulshan', this)" class="zone-pill px-3 py-1.5 rounded-full font-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container">Gulshan-e-Iqbal (7)</button>
+        <button onclick="filterZone('PECHS', this)" class="zone-pill px-3 py-1.5 rounded-full font-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container">PECHS &amp; Bahadurabad (5)</button>
+        <button onclick="filterZone('Nazimabad', this)" class="zone-pill px-3 py-1.5 rounded-full font-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container">North Nazimabad (3)</button>
+        <button onclick="filterZone('DHA', this)" class="zone-pill px-3 py-1.5 rounded-full font-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container">DHA &amp; Clifton (3)</button>
+      </div>
+
+      <!-- Kanban Order Pipeline (4 Columns) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+        <!-- Col 1: Received / Unassigned -->
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col space-y-space-sm border-t-4 border-amber-500">
+          <div class="flex items-center justify-between pb-2 border-b border-surface-container">
+            <span class="font-headline-sm text-headline-sm text-on-surface">1. Received</span>
+            <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-label-sm font-bold">5 Orders</span>
+          </div>
+          <div class="space-y-2 flex-1">
+            <div class="p-3 bg-surface-container-low rounded-lg space-y-1 hover:bg-surface-container transition-colors">
+              <div class="flex justify-between items-start">
+                <span class="font-mono font-bold text-primary text-xs">#ORD-7826</span>
+                <span class="text-xs text-secondary">3 mins ago</span>
+              </div>
+              <h5 class="font-headline-sm text-[13px] text-on-surface">Mrs. Sadaf Junaid</h5>
+              <p class="text-xs text-secondary">Gulshan Block 7 • 6 Items (Atta, Dalda, Olpers)</p>
+              <div class="flex justify-between items-center pt-1 border-t text-xs">
+                <span class="font-semibold text-on-surface">Rs. 4,250 (COD)</span>
+                <button onclick="quickAssign('ORD-7826', 'Mrs. Sadaf Junaid')" class="text-primary font-semibold hover:underline">Assign →</button>
+              </div>
+            </div>
+            <div class="p-3 bg-surface-container-low rounded-lg space-y-1 hover:bg-surface-container transition-colors">
+              <div class="flex justify-between items-start">
+                <span class="font-mono font-bold text-primary text-xs">#ORD-7827</span>
+                <span class="text-xs text-secondary">8 mins ago</span>
+              </div>
+              <h5 class="font-headline-sm text-[13px] text-on-surface">Muhammad Rehan</h5>
+              <p class="text-xs text-secondary">PECHS Block 3 • 4 Items</p>
+              <div class="flex justify-between items-center pt-1 border-t text-xs">
+                <span class="font-semibold text-on-surface">Rs. 2,890 (Raast Paid)</span>
+                <button onclick="quickAssign('ORD-7827', 'Muhammad Rehan')" class="text-primary font-semibold hover:underline">Assign →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 2: Packing & Bagging -->
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col space-y-space-sm border-t-4 border-blue-500">
+          <div class="flex items-center justify-between pb-2 border-b border-surface-container">
+            <span class="font-headline-sm text-headline-sm text-on-surface">2. Bagging &amp; Chill Check</span>
+            <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-900 font-label-sm font-bold">4 Orders</span>
+          </div>
+          <div class="space-y-2 flex-1">
+            <div class="p-3 bg-surface-container-low rounded-lg space-y-1 hover:bg-surface-container transition-colors">
+              <div class="flex justify-between items-start">
+                <span class="font-mono font-bold text-primary text-xs">#ORD-7825</span>
+                <span class="px-1.5 py-0.5 rounded bg-blue-200 text-blue-900 font-label-sm text-[10px]">Station #02</span>
+              </div>
+              <h5 class="font-headline-sm text-[13px] text-on-surface">Dr. Farah Naz</h5>
+              <p class="text-xs text-secondary">Bahadurabad Main • 12 Items (Frozen cold-chain)</p>
+              <div class="flex justify-between items-center pt-1 border-t text-xs">
+                <span class="font-semibold text-on-surface">Rs. 11,400 (COD)</span>
+                <span class="text-blue-700 font-semibold">Ice Box Packed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 3: Out for Delivery (Rider Dispatched) -->
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col space-y-space-sm border-t-4 border-emerald-500">
+          <div class="flex items-center justify-between pb-2 border-b border-surface-container">
+            <span class="font-headline-sm text-headline-sm text-on-surface">3. Out for Delivery</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-label-sm font-bold">6 Active</span>
+          </div>
+          <div class="space-y-2 flex-1">
+            <div class="p-3 bg-surface-container-low rounded-lg space-y-1 hover:bg-surface-container transition-colors">
+              <div class="flex justify-between items-start">
+                <span class="font-mono font-bold text-primary text-xs">#ORD-7821</span>
+                <span class="text-xs text-emerald-700 font-semibold">ETA 12 mins</span>
+              </div>
+              <h5 class="font-headline-sm text-[13px] text-on-surface">Zohra Batool</h5>
+              <p class="text-xs text-secondary">PECHS Block 2 • 9 Items</p>
+              <div class="p-1.5 rounded bg-surface-container flex items-center justify-between text-xs mt-1">
+                <span class="font-semibold">Rider Tariq Khan</span>
+                <span class="font-mono text-secondary">KHI-8291</span>
+              </div>
+              <div class="flex justify-between items-center pt-1 text-xs">
+                <span class="font-semibold text-on-surface">Rs. 8,240 (COD)</span>
+                <button onclick="markDelivered('ORD-7821')" class="px-2 py-0.5 rounded bg-emerald-600 text-white font-semibold">Mark Done</button>
+              </div>
+            </div>
+            <div class="p-3 bg-surface-container-low rounded-lg space-y-1 hover:bg-surface-container transition-colors">
+              <div class="flex justify-between items-start">
+                <span class="font-mono font-bold text-primary text-xs">#ORD-7823</span>
+                <span class="text-xs text-emerald-700 font-semibold">ETA 8 mins</span>
+              </div>
+              <h5 class="font-headline-sm text-[13px] text-on-surface">Kamran Ali</h5>
+              <p class="text-xs text-secondary">Gulshan Block 13-D • 5 Items</p>
+              <div class="p-1.5 rounded bg-surface-container flex items-center justify-between text-xs mt-1">
+                <span class="font-semibold">Rider Zeeshan</span>
+                <span class="font-mono text-secondary">KHI-9941</span>
+              </div>
+              <div class="flex justify-between items-center pt-1 text-xs">
+                <span class="font-semibold text-on-surface">Rs. 3,450 (Paid)</span>
+                <button onclick="markDelivered('ORD-7823')" class="px-2 py-0.5 rounded bg-emerald-600 text-white font-semibold">Mark Done</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 4: Delivered & COD Settled -->
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col space-y-space-sm border-t-4 border-gray-400">
+          <div class="flex items-center justify-between pb-2 border-b border-surface-container">
+            <span class="font-headline-sm text-headline-sm text-on-surface">4. Completed Today</span>
+            <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-900 font-label-sm font-bold">38 Orders</span>
+          </div>
+          <div class="space-y-2 flex-1">
+            <div class="p-3 bg-surface-container-low rounded-lg space-y-1 opacity-75">
+              <div class="flex justify-between items-start">
+                <span class="font-mono font-bold text-secondary text-xs">#ORD-7819</span>
+                <span class="text-xs text-secondary">Delivered 14:10</span>
+              </div>
+              <h5 class="font-headline-sm text-[13px] text-on-surface">Asad Munir</h5>
+              <p class="text-xs text-secondary">North Nazimabad • 4 Items</p>
+              <div class="flex justify-between items-center pt-1 border-t text-xs">
+                <span class="font-semibold text-on-surface">Rs. 3,850</span>
+                <span class="text-primary font-semibold flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-[14px]">check_circle</span> Cash Deposited
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ASSIGN RIDER MODAL -->
+  <div id="assign-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden p-4">
+    <div class="bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-md p-space-lg space-y-space-md border border-surface-container-high">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h4 class="font-headline-md text-headline-md text-on-surface">Assign Courier to Order</h4>
+        <button onclick="closeAssignModal()" class="text-secondary hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      </div>
+      <div>
+        <label class="block font-label-md text-secondary mb-1">Select Order</label>
+        <select id="modal-order-select" class="w-full px-3 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary">
+          <option value="ORD-7826">#ORD-7826 - Mrs. Sadaf Junaid (Gulshan Block 7) - Rs. 4,250</option>
+          <option value="ORD-7827">#ORD-7827 - Muhammad Rehan (PECHS Block 3) - Rs. 2,890</option>
+          <option value="ORD-7825">#ORD-7825 - Dr. Farah Naz (Bahadurabad Main) - Rs. 11,400</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-label-md text-secondary mb-1">Assign Karachi Rider</label>
+        <select id="modal-rider-select" class="w-full px-3 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary">
+          <option>Tariq Khan (Bike # KHI-8291 - Standby Hub)</option>
+          <option>Bilal Sheikh (Bike # KHI-3910 - Standby Hub)</option>
+          <option>Farrukh Javed (Delivery Van # KHI-VAN-02 - Bulk)</option>
+          <option>Kamran Ali (Bike # KHI-5512 - Gulshan Corridor)</option>
+        </select>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeAssignModal()" class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md">Cancel</button>
+        <button onclick="confirmAssignment()" class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container">Dispatch Rider</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filterZone(zone, btn) {
+      document.querySelectorAll('.zone-pill').forEach(b => {
+        b.className = 'zone-pill px-3 py-1.5 rounded-full font-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container';
+      });
+      btn.className = 'zone-pill px-3 py-1.5 rounded-full font-label-md bg-primary-container text-on-primary-container font-semibold';
+    }
+
+    function openAssignModal() {
+      document.getElementById('assign-modal').classList.remove('hidden');
+    }
+
+    function closeAssignModal() {
+      document.getElementById('assign-modal').classList.add('hidden');
+    }
+
+    function quickAssign(orderId, name) {
+      openAssignModal();
+    }
+
+    function confirmAssignment() {
+      const order = document.getElementById('modal-order-select').value;
+      const rider = document.getElementById('modal-rider-select').value;
+      alert(`Order ${order} assigned to ${rider}. Push notification sent to rider phone.`);
+      closeAssignModal();
+    }
+
+    function markDelivered(orderId) {
+      alert(`Order ${orderId} marked Delivered. COD Cash collected and credited to shift closing ledger.`);
+    }
+
+    function refreshOrders() {
+      alert('Orders synchronized with Karachi Mart Online Web Storefront via WebSocket.');
+    }
+  </script>
+</body>
+</html>

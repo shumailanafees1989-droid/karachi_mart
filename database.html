@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_dashboard" name="shell-type"/>
+  <title>Database &amp; Supabase Integration • Karachi Mart Retail ERP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #bccac0; border-radius: 4px; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#68dba9", "on-primary-fixed-variant": "#005137", "on-error": "#ffffff", "surface-bright": "#f8f9ff",
+            "secondary-fixed-dim": "#bec6e0", "on-tertiary": "#ffffff", "surface-dim": "#cbdbf5", "tertiary-fixed": "#ffdcc3",
+            "primary-container": "#00855d", "primary-fixed-dim": "#68dba9", "on-tertiary-container": "#fffbff", "on-background": "#0b1c30",
+            "primary-fixed": "#85f8c4", "secondary": "#565e74", "surface-container-lowest": "#ffffff", "outline": "#6d7a72",
+            "surface-tint": "#006c4a", "error": "#ba1a1a", "surface-container-low": "#eff4ff", "on-surface": "#0b1c30",
+            "on-surface-variant": "#3d4a42", "background": "#f8f9ff", "on-tertiary-fixed": "#2f1500", "error-container": "#ffdad6",
+            "surface": "#f8f9ff", "outline-variant": "#bccac0", "tertiary-fixed-dim": "#ffb77d", "surface-container": "#e5eeff",
+            "on-secondary-fixed": "#131b2e", "on-secondary-container": "#5c647a", "on-secondary": "#ffffff", "primary": "#006948",
+            "on-tertiary-fixed-variant": "#6e3900", "tertiary": "#8d4b00", "inverse-on-surface": "#eaf1ff", "secondary-fixed": "#dae2fd",
+            "tertiary-container": "#b15f00", "on-primary": "#ffffff", "surface-container-high": "#dce9ff", "inverse-surface": "#213145",
+            "on-error-container": "#93000a", "on-primary-fixed": "#002114", "on-secondary-fixed-variant": "#3f465c", "on-primary-container": "#f5fff7",
+            "surface-container-highest": "#d3e4fe", "surface-variant": "#d3e4fe", "secondary-container": "#dae2fd"
+          },
+          "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+          "spacing": { "space-xl": "2rem", "space-sm": "0.5rem", "gutter": "1rem", "margin-desktop": "2rem", "space-xs": "0.25rem", "space-lg": "1.25rem", "margin": "1rem", "space-md": "0.75rem", "gutter-desktop": "1.5rem" },
+          "fontFamily": {
+            "headline-md": ["Plus Jakarta Sans"], "label-md": ["Inter"], "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "body-sm": ["Inter"],
+            "body-md": ["Inter"], "table-cell": ["Inter"], "label-sm": ["Inter"],
+            "metric-stat": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Supabase CDN + Virtual /env.js + Data Layer -->
+  <script src="/env.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/supabase-client.js"></script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
+  <aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col h-full overflow-hidden">
+      <div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest">
+        <img alt="Karachi Mart Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ug5ATdt8sty-Z57VHDlmyJcZPV3abtXzkTylBvd7_p4bj26fclv8F50uTjNLuhsmCQhZqU0-K1C2fHwegN-j8TA7a_vJaCTrw7GHsJXmvA39YU2CCO_-5hN7vPtGurOFqHggS88hGxB0bukOaELDvoYpjLx0ARiv-FuK8g23x1FI5jefe1p2uu3yH9Ncx3J7HBIPR7ehlnqC8-I06kPf0AFrNz9yfilWIzS8kB-R_fiSYXsREFRCmc19xa"/>
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm text-primary leading-tight tracking-tight">Karachi Mart</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Retail ERP • Pakistan</span>
+        </div>
+      </div>
+      <div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-md">
+        <nav class="space-y-space-xs">
+          <div class="px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Main</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="overview-dashboard" href="index.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+              <span class="font-body-md text-body-md">Overview Dashboard</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="pos-sales" href="pos.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">point_of_sale</span>
+              <span class="font-body-md text-body-md">POS &amp; Sales</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">20 New</span>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="inventory-stock" href="inventory.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+              <span class="font-body-md text-body-md">Inventory &amp; Stock</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">4 Low</span>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Procurement &amp; Ops</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="supplier-purchases" href="suppliers.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+              <span class="font-body-md text-body-md">Supplier Purchases</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="cash-register-closing" href="cash-register.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+              <span class="font-body-md text-body-md">Cash Register &amp; Closing</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="deliveries-fleet" href="deliveries.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">two_wheeler</span>
+              <span class="font-body-md text-body-md">Deliveries &amp; Fleet</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">6 Active</span>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Management</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="customers-loyalty" href="customers.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">loyalty</span>
+              <span class="font-body-md text-body-md">Customers &amp; Loyalty</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="staff-attendance" href="staff.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">badge</span>
+              <span class="font-body-md text-body-md">Staff &amp; Attendance</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="expenses-pl" href="expenses.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+              <span class="font-body-md text-body-md">Expenses &amp; P&amp;L</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="reports-analytics" href="reports.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">analytics</span>
+              <span class="font-body-md text-body-md">Reports &amp; Analytics</span>
+            </div>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Developer &amp; System</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="database-supabase-schema" href="database.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">database</span>
+              <span class="font-body-md text-body-md">Database &amp; Schema</span>
+            </div>
+          </a>
+        </nav>
+      </div>
+      <div class="p-space-md bg-surface-container-lowest">
+        <div class="p-space-sm bg-surface-container-low rounded-xl flex items-center justify-between">
+          <div class="flex items-center gap-space-sm">
+            <span class="h-2.5 w-2.5 rounded-full bg-primary animate-pulse" id="sidebar-db-indicator"></span>
+            <div class="flex flex-col">
+              <span class="font-label-sm text-label-sm text-on-surface font-semibold" id="sidebar-db-title">Database Engine</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant" id="sidebar-db-status">Checking...</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[18px] text-primary">database</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="pl-72">
+    <header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-xl z-40 px-space-lg flex items-center justify-between gap-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <div class="flex items-center gap-space-sm">
+        <span class="px-space-sm py-space-xs rounded-lg bg-surface-container-low font-label-md font-semibold text-on-surface flex items-center gap-1">
+          <span class="material-symbols-outlined text-primary text-[18px]">terminal</span> Shared Supabase Data Layer
+        </span>
+      </div>
+      <div class="flex items-center gap-space-sm">
+        <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm font-semibold" id="header-conn-badge">Supabase: Initialized</span>
+      </div>
+    </header>
+
+    <main class="w-full pt-16 bg-surface min-h-screen px-space-lg py-space-lg space-y-space-lg">
+      <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-md">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm font-semibold uppercase">Cloud Database</span>
+            <span class="text-secondary font-label-sm">• Supabase PostgreSQL Layer</span>
+          </div>
+          <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Database &amp; Supabase Integration</h1>
+          <p class="font-body-md text-body-md text-on-surface-variant">Connect your live Supabase project, populate tables with 1-click seed loader, and inspect PostgreSQL schemas.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-space-sm">
+          <button onclick="triggerSeedAll()" id="seed-btn" class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container transition-colors flex items-center gap-1.5 shadow-md">
+            <span class="material-symbols-outlined text-[18px]">cloud_upload</span>
+            <span>Load Everything into Database</span>
+          </button>
+          <button onclick="copySQL()" class="px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface font-label-md hover:bg-surface-container-high transition-colors flex items-center gap-1.5 shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">content_copy</span>
+            <span>Copy Full SQL Schema</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Connection Configuration & Status Card -->
+      <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm border border-surface-container-high space-y-space-md">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm border-b border-surface-container pb-space-sm">
+          <div class="flex items-center gap-space-sm">
+            <div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+              <span class="material-symbols-outlined text-[24px]">cloud_sync</span>
+            </div>
+            <div>
+              <h3 class="font-headline-md text-headline-md text-on-surface">Supabase Connection Manager</h3>
+              <p class="font-body-sm text-secondary">Configured via <code class="font-mono text-primary bg-surface-container px-1 py-0.5 rounded">.env</code> and synchronized with the browser client.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="conn-pill" class="px-3 py-1 rounded-full font-label-sm font-semibold flex items-center gap-1 bg-primary-fixed text-on-primary-fixed">
+              <span class="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+              <span id="conn-pill-text">Ready</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Connection Form -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-md text-secondary mb-1">SUPABASE_URL</label>
+            <input id="input-supabase-url" placeholder="https://your-project.supabase.co" class="w-full px-3 py-2 rounded-xl bg-surface-container-low text-on-surface font-mono text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+          </div>
+          <div>
+            <label class="block font-label-md text-secondary mb-1">SUPABASE_ANON_KEY</label>
+            <input id="input-supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." type="password" class="w-full px-3 py-2 rounded-xl bg-surface-container-low text-on-surface font-mono text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-space-sm pt-2">
+          <div class="flex items-center gap-2">
+            <button onclick="testCurrentConnection()" class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md font-semibold hover:bg-surface-container-high transition-colors flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px] text-primary">network_ping</span>
+              <span>Test Connection</span>
+            </button>
+            <button onclick="saveAndApplyKeys()" class="px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container transition-colors">
+              Save &amp; Connect
+            </button>
+          </div>
+          <span id="test-result-msg" class="text-body-sm font-medium text-secondary"></span>
+        </div>
+
+        <!-- Progress Box for Seeding -->
+        <div id="seed-progress-box" class="p-space-md rounded-xl bg-surface-container-low hidden space-y-2 border border-surface-container-high">
+          <div class="flex justify-between font-label-md text-on-surface">
+            <span class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-primary text-[18px] animate-spin">sync</span>
+              <span id="seed-step-text">Loading tables...</span>
+            </span>
+            <span class="text-primary font-semibold font-mono" id="seed-percent">In Progress</span>
+          </div>
+          <div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+            <div id="seed-progress-bar" class="bg-primary h-full transition-all duration-300" style="width: 25%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Relational Data Model Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-surface-container-high space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-primary text-sm">public.products</span>
+            <span class="text-xs bg-primary-fixed text-on-primary-fixed px-2 py-0.5 rounded font-semibold">14 SKUs</span>
+          </div>
+          <p class="text-xs text-secondary">Catalog, Barcode (EAN-13), SKU, PKR price, stock count, and category.</p>
+        </div>
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-surface-container-high space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-primary text-sm">public.orders</span>
+            <span class="text-xs bg-primary-fixed text-on-primary-fixed px-2 py-0.5 rounded font-semibold">Realtime</span>
+          </div>
+          <p class="text-xs text-secondary">Web &amp; POS orders, channel, payment status (Paid, COD), order stage.</p>
+        </div>
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-surface-container-high space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-primary text-sm">public.customers</span>
+            <span class="text-xs bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded font-semibold">6 Members</span>
+          </div>
+          <p class="text-xs text-secondary">Loyalty club records, points balance, WhatsApp receipt opt-in status.</p>
+        </div>
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-surface-container-high space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-primary text-sm">public.pos_shifts</span>
+            <span class="text-xs bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded font-semibold">Shift #4029</span>
+          </div>
+          <p class="text-xs text-secondary">Cash float, blind drops to vault, shift closing reconciliation, Z-Report.</p>
+        </div>
+      </div>
+
+      <!-- SQL Schema Preview Box -->
+      <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 class="font-headline-md text-headline-md text-on-surface">Supabase SQL Schema &amp; Seed Definitions</h3>
+            <p class="font-body-sm text-secondary">Run this in your Supabase SQL Editor to initialize all tables, RLS policies, and seed data.</p>
+          </div>
+          <span class="font-mono text-xs text-secondary bg-surface-container px-2 py-1 rounded">supabase_schema.sql (PostgreSQL 15+)</span>
+        </div>
+        <pre class="bg-gray-900 text-gray-100 p-space-md rounded-xl font-mono text-[12px] leading-relaxed overflow-x-auto border border-gray-800 max-h-96">
+-- =========================================================================
+-- KARACHI MART RETAIL ERP &amp; STOREFRONT — SUPABASE POSTGRESQL SCHEMA
+-- Branch: Gulshan-e-Iqbal Branch #01, Karachi, Sindh, Pakistan
+-- =========================================================================
+
+CREATE TABLE IF NOT EXISTS public.categories (...);
+CREATE TABLE IF NOT EXISTS public.suppliers (...);
+CREATE TABLE IF NOT EXISTS public.products (...);
+CREATE TABLE IF NOT EXISTS public.inventory_batches (...);
+CREATE TABLE IF NOT EXISTS public.customers (...);
+CREATE TABLE IF NOT EXISTS public.fleet_riders (...);
+CREATE TABLE IF NOT EXISTS public.pos_shifts (...);
+CREATE TABLE IF NOT EXISTS public.orders (...);
+CREATE TABLE IF NOT EXISTS public.order_items (...);
+CREATE TABLE IF NOT EXISTS public.store_expenses (...);
+
+-- Realtime WebSockets
+ALTER PUBLICATION supabase_realtime ADD TABLE 
+  public.products, public.orders, public.order_items, 
+  public.inventory_batches, public.pos_shifts, public.fleet_riders;
+        </pre>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Initialize UI with environment variables from /env.js or localStorage
+    function loadExistingConfig() {
+      const config = window.KarachiMartDB.getConfig();
+      const urlInput = document.getElementById('input-supabase-url');
+      const keyInput = document.getElementById('input-supabase-key');
+
+      if (config.url) urlInput.value = config.url;
+      if (config.key) keyInput.value = config.key;
+
+      updateStatusBadges(config.isReal);
+    }
+
+    function updateStatusBadges(isReal) {
+      const pill = document.getElementById('conn-pill');
+      const pillText = document.getElementById('conn-pill-text');
+      const sideStatus = document.getElementById('sidebar-db-status');
+      const sideTitle = document.getElementById('sidebar-db-title');
+
+      if (isReal) {
+        pill.className = 'px-3 py-1 rounded-full font-label-sm font-semibold flex items-center gap-1 bg-primary-fixed text-on-primary-fixed';
+        pillText.innerText = 'Supabase Connected';
+        sideStatus.innerText = 'Supabase Online';
+        sideTitle.innerText = 'Cloud PostgreSQL';
+      } else {
+        pill.className = 'px-3 py-1 rounded-full font-label-sm font-semibold flex items-center gap-1 bg-tertiary-fixed text-on-tertiary-fixed';
+        pillText.innerText = 'Demo / Mock Mode (Seed Ready)';
+        sideStatus.innerText = 'Local Demo Seed';
+        sideTitle.innerText = 'Mock DB';
+      }
+    }
+
+    async function testCurrentConnection() {
+      const url = document.getElementById('input-supabase-url').value.trim();
+      const key = document.getElementById('input-supabase-key').value.trim();
+      const resultEl = document.getElementById('test-result-msg');
+
+      if (!url || !key) {
+        resultEl.innerText = 'Please enter both Supabase URL and Anon Key.';
+        resultEl.className = 'text-body-sm font-semibold text-error';
+        return;
+      }
+
+      resultEl.innerText = 'Pinging Supabase REST endpoint...';
+      resultEl.className = 'text-body-sm font-semibold text-secondary';
+
+      const res = await window.KarachiMartDB.testConnection(url, key);
+      if (res.success) {
+        resultEl.innerText = res.message;
+        resultEl.className = 'text-body-sm font-semibold text-primary';
+        updateStatusBadges(true);
+      } else {
+        resultEl.innerText = 'Connection error: ' + res.error;
+        resultEl.className = 'text-body-sm font-semibold text-error';
+      }
+    }
+
+    function saveAndApplyKeys() {
+      const url = document.getElementById('input-supabase-url').value.trim();
+      const key = document.getElementById('input-supabase-key').value.trim();
+      window.KarachiMartDB.saveConfig(url, key);
+      alert('Supabase credentials saved and client initialized!');
+      testCurrentConnection();
+    }
+
+    async function triggerSeedAll() {
+      const box = document.getElementById('seed-progress-box');
+      const text = document.getElementById('seed-step-text');
+      const bar = document.getElementById('seed-progress-bar');
+      const btn = document.getElementById('seed-btn');
+
+      box.classList.remove('hidden');
+      btn.disabled = true;
+
+      try {
+        await window.KarachiMartDB.seedDatabase((step) => {
+          text.innerText = step;
+          if (step.includes('categories')) bar.style.width = '20%';
+          else if (step.includes('products')) bar.style.width = '50%';
+          else if (step.includes('customers')) bar.style.width = '75%';
+          else if (step.includes('riders')) bar.style.width = '90%';
+          else bar.style.width = '100%';
+        });
+        text.innerText = 'Database populated successfully with all Pakistani FMCG products, categories & shifts!';
+        bar.style.width = '100%';
+        alert('All seed data successfully loaded into your Supabase database!');
+      } catch (err) {
+        text.innerText = 'Seeding notice: ' + err.message;
+        alert(err.message + '\n\nTip: You can also copy the complete SQL schema and run it in the Supabase SQL Editor.');
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function copySQL() {
+      try {
+        const resp = await fetch('/supabase_schema.sql');
+        const sql = await resp.text();
+        await navigator.clipboard.writeText(sql);
+        alert('Complete supabase_schema.sql copied to clipboard! Paste and execute in your Supabase SQL Editor.');
+      } catch (e) {
+        alert('Copying supabase_schema.sql from local project...');
+      }
+    }
+
+    // Initialize on page load
+    loadExistingConfig();
+  </script>
+</body>
+</html>

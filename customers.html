@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_dashboard" name="shell-type"/>
+  <title>Customers &amp; Loyalty • Karachi Mart Retail ERP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #bccac0; border-radius: 4px; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#68dba9", "on-primary-fixed-variant": "#005137", "on-error": "#ffffff", "surface-bright": "#f8f9ff",
+            "secondary-fixed-dim": "#bec6e0", "on-tertiary": "#ffffff", "surface-dim": "#cbdbf5", "tertiary-fixed": "#ffdcc3",
+            "primary-container": "#00855d", "primary-fixed-dim": "#68dba9", "on-tertiary-container": "#fffbff", "on-background": "#0b1c30",
+            "primary-fixed": "#85f8c4", "secondary": "#565e74", "surface-container-lowest": "#ffffff", "outline": "#6d7a72",
+            "surface-tint": "#006c4a", "error": "#ba1a1a", "surface-container-low": "#eff4ff", "on-surface": "#0b1c30",
+            "on-surface-variant": "#3d4a42", "background": "#f8f9ff", "on-tertiary-fixed": "#2f1500", "error-container": "#ffdad6",
+            "surface": "#f8f9ff", "outline-variant": "#bccac0", "tertiary-fixed-dim": "#ffb77d", "surface-container": "#e5eeff",
+            "on-secondary-fixed": "#131b2e", "on-secondary-container": "#5c647a", "on-secondary": "#ffffff", "primary": "#006948",
+            "on-tertiary-fixed-variant": "#6e3900", "tertiary": "#8d4b00", "inverse-on-surface": "#eaf1ff", "secondary-fixed": "#dae2fd",
+            "tertiary-container": "#b15f00", "on-primary": "#ffffff", "surface-container-high": "#dce9ff", "inverse-surface": "#213145",
+            "on-error-container": "#93000a", "on-primary-fixed": "#002114", "on-secondary-fixed-variant": "#3f465c", "on-primary-container": "#f5fff7",
+            "surface-container-highest": "#d3e4fe", "surface-variant": "#d3e4fe", "secondary-container": "#dae2fd"
+          },
+          "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+          "spacing": { "space-xl": "2rem", "space-sm": "0.5rem", "gutter": "1rem", "margin-desktop": "2rem", "space-xs": "0.25rem", "space-lg": "1.25rem", "margin": "1rem", "space-md": "0.75rem", "gutter-desktop": "1.5rem" },
+          "fontFamily": {
+            "headline-md": ["Plus Jakarta Sans"], "label-md": ["Inter"], "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "body-sm": ["Inter"],
+            "body-md": ["Inter"], "table-cell": ["Inter"], "label-sm": ["Inter"],
+            "metric-stat": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
+  <aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col h-full overflow-hidden">
+      <div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest">
+        <img alt="Karachi Mart Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ug5ATdt8sty-Z57VHDlmyJcZPV3abtXzkTylBvd7_p4bj26fclv8F50uTjNLuhsmCQhZqU0-K1C2fHwegN-j8TA7a_vJaCTrw7GHsJXmvA39YU2CCO_-5hN7vPtGurOFqHggS88hGxB0bukOaELDvoYpjLx0ARiv-FuK8g23x1FI5jefe1p2uu3yH9Ncx3J7HBIPR7ehlnqC8-I06kPf0AFrNz9yfilWIzS8kB-R_fiSYXsREFRCmc19xa"/>
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm text-primary leading-tight tracking-tight">Karachi Mart</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Retail ERP • Pakistan</span>
+        </div>
+      </div>
+      <div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-md">
+        <nav class="space-y-space-xs">
+          <div class="px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Main</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="overview-dashboard" href="index.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+              <span class="font-body-md text-body-md">Overview Dashboard</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="pos-sales" href="pos.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">point_of_sale</span>
+              <span class="font-body-md text-body-md">POS &amp; Sales</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">20 New</span>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="inventory-stock" href="inventory.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+              <span class="font-body-md text-body-md">Inventory &amp; Stock</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">4 Low</span>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Procurement &amp; Ops</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="supplier-purchases" href="suppliers.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+              <span class="font-body-md text-body-md">Supplier Purchases</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="cash-register-closing" href="cash-register.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+              <span class="font-body-md text-body-md">Cash Register &amp; Closing</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="deliveries-fleet" href="deliveries.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">two_wheeler</span>
+              <span class="font-body-md text-body-md">Deliveries &amp; Fleet</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">6 Active</span>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Management</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="customers-loyalty" href="customers.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">loyalty</span>
+              <span class="font-body-md text-body-md">Customers &amp; Loyalty</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="staff-attendance" href="staff.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">badge</span>
+              <span class="font-body-md text-body-md">Staff &amp; Attendance</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="expenses-pl" href="expenses.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+              <span class="font-body-md text-body-md">Expenses &amp; P&amp;L</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="reports-analytics" href="reports.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">analytics</span>
+              <span class="font-body-md text-body-md">Reports &amp; Analytics</span>
+            </div>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Developer &amp; System</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="database-supabase-schema" href="database.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">database</span>
+              <span class="font-body-md text-body-md">Database &amp; Schema</span>
+            </div>
+          </a>
+        </nav>
+      </div>
+      <div class="p-space-md bg-surface-container-lowest">
+        <div class="p-space-sm bg-surface-container-low rounded-xl flex items-center justify-between">
+          <div class="flex items-center gap-space-sm">
+            <span class="h-2.5 w-2.5 rounded-full bg-primary"></span>
+            <div class="flex flex-col">
+              <span class="font-label-sm text-label-sm text-on-surface font-semibold">Loyalty Club</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">1,240 Members</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[18px] text-primary">loyalty</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="pl-72">
+    <header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-xl z-40 px-space-lg flex items-center justify-between gap-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <div class="flex items-center gap-space-sm">
+        <span class="px-space-sm py-space-xs rounded-lg bg-surface-container-low font-label-md font-semibold text-on-surface flex items-center gap-1">
+          <span class="material-symbols-outlined text-primary text-[18px]">card_membership</span> Karachi Mart Club Rewards
+        </span>
+      </div>
+      <div class="flex items-center gap-space-sm">
+        <span class="text-body-sm text-secondary">Reward Conversion: <strong>100 Pts = Rs. 100 PKR</strong></span>
+      </div>
+    </header>
+
+    <main class="w-full pt-16 bg-surface min-h-screen px-space-lg py-space-lg space-y-space-lg">
+      <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-md">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm font-semibold uppercase">Customer CRM</span>
+            <span class="text-secondary font-label-sm">• Karachi Household Loyalty</span>
+          </div>
+          <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Customers &amp; Loyalty Rewards</h1>
+          <p class="font-body-md text-body-md text-on-surface-variant">Look up customer phone numbers, loyalty points balances, purchase history, and WhatsApp opt-in.</p>
+        </div>
+        <button onclick="openCustomerModal()" class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container transition-colors flex items-center gap-1.5 shadow-md">
+          <span class="material-symbols-outlined text-[18px]">person_add</span>
+          <span>+ Enroll New Member</span>
+        </button>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-secondary block mb-1">Enrolled Club Members</span>
+          <span class="font-metric-stat text-metric-stat text-on-surface font-bold">1,240</span>
+          <div class="mt-2 text-body-sm text-secondary">+48 members this week</div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-secondary block mb-1">Points Redeemed (MTD)</span>
+          <span class="font-metric-stat text-metric-stat text-primary font-bold">Rs. 84,200</span>
+          <div class="mt-2 text-body-sm text-secondary">Equivalent PKR grocery discount</div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-secondary block mb-1">Average Repeat Purchase</span>
+          <span class="font-metric-stat text-metric-stat text-primary font-bold">3.4x / Mo</span>
+          <div class="mt-2 text-body-sm text-secondary">High supermarket retention</div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-secondary block mb-1">WhatsApp Receipt Opt-in</span>
+          <span class="font-metric-stat text-metric-stat text-on-surface font-bold">89.4%</span>
+          <div class="mt-2 text-body-sm text-secondary">Paperless billing preferred</div>
+        </div>
+      </div>
+
+      <!-- Customer Directory Table -->
+      <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md">
+        <div class="flex flex-col sm:flex-row justify-between gap-space-sm">
+          <div class="relative flex-1 max-w-md">
+            <span class="material-symbols-outlined absolute left-3 top-2.5 text-secondary text-[20px]">search</span>
+            <input placeholder="Search customer by name or mobile (e.g. 0300...)" class="w-full pl-10 pr-4 py-2 bg-surface-container-low rounded-lg text-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+          </div>
+          <div class="flex gap-2">
+            <select class="px-3 py-2 bg-surface-container-low rounded-lg font-label-md text-on-surface">
+              <option>All Tiers</option>
+              <option>Platinum Club</option>
+              <option>Gold Member</option>
+              <option>Silver Member</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left font-table-cell">
+            <thead class="bg-surface-container-low text-secondary uppercase text-[11px] font-semibold">
+              <tr>
+                <th class="py-2.5 px-space-md">Customer Name</th>
+                <th class="py-2.5 px-space-md">Mobile Number</th>
+                <th class="py-2.5 px-space-md">Karachi Area</th>
+                <th class="py-2.5 px-space-md text-center">Tier</th>
+                <th class="py-2.5 px-space-md text-right">Points Balance</th>
+                <th class="py-2.5 px-space-md text-right">Total Lifetime Spend</th>
+                <th class="py-2.5 px-space-md text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-surface-container">
+              <tr class="hover:bg-surface-container-low">
+                <td class="py-3 px-space-md font-semibold text-on-surface">Dr. Farah Naz</td>
+                <td class="py-3 px-space-md font-mono text-secondary">0300-8291044</td>
+                <td class="py-3 px-space-md">Bahadurabad Main</td>
+                <td class="py-3 px-space-md text-center"><span class="px-2 py-0.5 rounded-full bg-purple-100 text-purple-900 font-bold text-xs">Platinum</span></td>
+                <td class="py-3 px-space-md text-right font-headline-sm font-bold text-primary">1,450 Pts</td>
+                <td class="py-3 px-space-md text-right font-semibold">Rs. 184,200</td>
+                <td class="py-3 px-space-md text-center"><button class="text-primary hover:underline text-xs font-semibold">Invoices</button></td>
+              </tr>
+              <tr class="hover:bg-surface-container-low">
+                <td class="py-3 px-space-md font-semibold text-on-surface">Tariq Mehmood</td>
+                <td class="py-3 px-space-md font-mono text-secondary">0321-4920199</td>
+                <td class="py-3 px-space-md">Gulshan Block 5</td>
+                <td class="py-3 px-space-md text-center"><span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-bold text-xs">Gold</span></td>
+                <td class="py-3 px-space-md text-right font-headline-sm font-bold text-primary">820 Pts</td>
+                <td class="py-3 px-space-md text-right font-semibold">Rs. 92,400</td>
+                <td class="py-3 px-space-md text-center"><button class="text-primary hover:underline text-xs font-semibold">Invoices</button></td>
+              </tr>
+              <tr class="hover:bg-surface-container-low">
+                <td class="py-3 px-space-md font-semibold text-on-surface">Zohra Batool</td>
+                <td class="py-3 px-space-md font-mono text-secondary">0333-7182900</td>
+                <td class="py-3 px-space-md">PECHS Block 2</td>
+                <td class="py-3 px-space-md text-center"><span class="px-2 py-0.5 rounded-full bg-gray-200 text-gray-800 font-bold text-xs">Silver</span></td>
+                <td class="py-3 px-space-md text-right font-headline-sm font-bold text-primary">410 Pts</td>
+                <td class="py-3 px-space-md text-right font-semibold">Rs. 45,800</td>
+                <td class="py-3 px-space-md text-center"><button class="text-primary hover:underline text-xs font-semibold">Invoices</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ENROLL CUSTOMER MODAL -->
+  <div id="customer-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden p-4">
+    <div class="bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-md p-space-lg space-y-space-md border border-surface-container-high">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h4 class="font-headline-md text-headline-md text-on-surface">Enroll Club Member</h4>
+        <button onclick="closeCustomerModal()" class="text-secondary hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      </div>
+      <div>
+        <label class="block font-label-md text-secondary mb-1">Customer Full Name</label>
+        <input placeholder="e.g. Asim Raza" class="w-full px-4 py-2 rounded-xl bg-surface-container-low text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+      </div>
+      <div>
+        <label class="block font-label-md text-secondary mb-1">Mobile Phone (Pakistani SIM)</label>
+        <input placeholder="03XXXXXXXXX" class="w-full px-4 py-2 rounded-xl bg-surface-container-low text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+      </div>
+      <div>
+        <label class="block font-label-md text-secondary mb-1">Residential Sector / Area</label>
+        <select class="w-full px-3 py-2 rounded-xl bg-surface-container-low text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary">
+          <option>Gulshan-e-Iqbal (Blocks 1-13)</option>
+          <option>PECHS / Tariq Road</option>
+          <option>Bahadurabad / CP Berar</option>
+          <option>North Nazimabad</option>
+          <option>DHA Phase 1-8</option>
+          <option>Clifton Blocks 1-9</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-2 pt-1">
+        <input type="checkbox" id="whatsapp-check" checked class="rounded text-primary focus:ring-primary"/>
+        <label for="whatsapp-check" class="font-body-sm text-on-surface">Send digital bills &amp; promotions via WhatsApp</label>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeCustomerModal()" class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md">Cancel</button>
+        <button onclick="confirmCustomer()" class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container">Save &amp; Award 50 Bonus Pts</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openCustomerModal() {
+      document.getElementById('customer-modal').classList.remove('hidden');
+    }
+    function closeCustomerModal() {
+      document.getElementById('customer-modal').classList.add('hidden');
+    }
+    function confirmCustomer() {
+      alert('Member enrolled successfully! Welcome SMS sent with 50 bonus club points.');
+      closeCustomerModal();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_dashboard" name="shell-type"/>
+  <title>Supplier Purchases &amp; POs • Karachi Mart Retail ERP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #bccac0; border-radius: 4px; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#68dba9", "on-primary-fixed-variant": "#005137", "on-error": "#ffffff", "surface-bright": "#f8f9ff",
+            "secondary-fixed-dim": "#bec6e0", "on-tertiary": "#ffffff", "surface-dim": "#cbdbf5", "tertiary-fixed": "#ffdcc3",
+            "primary-container": "#00855d", "primary-fixed-dim": "#68dba9", "on-tertiary-container": "#fffbff", "on-background": "#0b1c30",
+            "primary-fixed": "#85f8c4", "secondary": "#565e74", "surface-container-lowest": "#ffffff", "outline": "#6d7a72",
+            "surface-tint": "#006c4a", "error": "#ba1a1a", "surface-container-low": "#eff4ff", "on-surface": "#0b1c30",
+            "on-surface-variant": "#3d4a42", "background": "#f8f9ff", "on-tertiary-fixed": "#2f1500", "error-container": "#ffdad6",
+            "surface": "#f8f9ff", "outline-variant": "#bccac0", "tertiary-fixed-dim": "#ffb77d", "surface-container": "#e5eeff",
+            "on-secondary-fixed": "#131b2e", "on-secondary-container": "#5c647a", "on-secondary": "#ffffff", "primary": "#006948",
+            "on-tertiary-fixed-variant": "#6e3900", "tertiary": "#8d4b00", "inverse-on-surface": "#eaf1ff", "secondary-fixed": "#dae2fd",
+            "tertiary-container": "#b15f00", "on-primary": "#ffffff", "surface-container-high": "#dce9ff", "inverse-surface": "#213145",
+            "on-error-container": "#93000a", "on-primary-fixed": "#002114", "on-secondary-fixed-variant": "#3f465c", "on-primary-container": "#f5fff7",
+            "surface-container-highest": "#d3e4fe", "surface-variant": "#d3e4fe", "secondary-container": "#dae2fd"
+          },
+          "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+          "spacing": { "space-xl": "2rem", "space-sm": "0.5rem", "gutter": "1rem", "margin-desktop": "2rem", "space-xs": "0.25rem", "space-lg": "1.25rem", "margin": "1rem", "space-md": "0.75rem", "gutter-desktop": "1.5rem" },
+          "fontFamily": {
+            "headline-md": ["Plus Jakarta Sans"], "label-md": ["Inter"], "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "body-sm": ["Inter"],
+            "body-md": ["Inter"], "table-cell": ["Inter"], "label-sm": ["Inter"],
+            "metric-stat": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
+  <aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col h-full overflow-hidden">
+      <div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest">
+        <img alt="Karachi Mart Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ug5ATdt8sty-Z57VHDlmyJcZPV3abtXzkTylBvd7_p4bj26fclv8F50uTjNLuhsmCQhZqU0-K1C2fHwegN-j8TA7a_vJaCTrw7GHsJXmvA39YU2CCO_-5hN7vPtGurOFqHggS88hGxB0bukOaELDvoYpjLx0ARiv-FuK8g23x1FI5jefe1p2uu3yH9Ncx3J7HBIPR7ehlnqC8-I06kPf0AFrNz9yfilWIzS8kB-R_fiSYXsREFRCmc19xa"/>
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm text-primary leading-tight tracking-tight">Karachi Mart</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Retail ERP • Pakistan</span>
+        </div>
+      </div>
+      <div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-md">
+        <nav class="space-y-space-xs">
+          <div class="px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Main</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="overview-dashboard" href="index.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+              <span class="font-body-md text-body-md">Overview Dashboard</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="pos-sales" href="pos.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">point_of_sale</span>
+              <span class="font-body-md text-body-md">POS &amp; Sales</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">20 New</span>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="inventory-stock" href="inventory.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+              <span class="font-body-md text-body-md">Inventory &amp; Stock</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">4 Low</span>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Procurement &amp; Ops</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="supplier-purchases" href="suppliers.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+              <span class="font-body-md text-body-md">Supplier Purchases</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="cash-register-closing" href="cash-register.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+              <span class="font-body-md text-body-md">Cash Register &amp; Closing</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="deliveries-fleet" href="deliveries.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">two_wheeler</span>
+              <span class="font-body-md text-body-md">Deliveries &amp; Fleet</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">6 Active</span>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Management</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="customers-loyalty" href="customers.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">loyalty</span>
+              <span class="font-body-md text-body-md">Customers &amp; Loyalty</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="staff-attendance" href="staff.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">badge</span>
+              <span class="font-body-md text-body-md">Staff &amp; Attendance</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="expenses-pl" href="expenses.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+              <span class="font-body-md text-body-md">Expenses &amp; P&amp;L</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="reports-analytics" href="reports.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">analytics</span>
+              <span class="font-body-md text-body-md">Reports &amp; Analytics</span>
+            </div>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Developer &amp; System</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="database-supabase-schema" href="database.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">database</span>
+              <span class="font-body-md text-body-md">Database &amp; Schema</span>
+            </div>
+          </a>
+        </nav>
+      </div>
+      <div class="p-space-md bg-surface-container-lowest">
+        <div class="p-space-sm bg-surface-container-low rounded-xl flex items-center justify-between">
+          <div class="flex items-center gap-space-sm">
+            <span class="h-2.5 w-2.5 rounded-full bg-primary"></span>
+            <div class="flex flex-col">
+              <span class="font-label-sm text-label-sm text-on-surface font-semibold">Karachi Procurement</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">34 POs Received MTD</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[18px] text-primary">local_shipping</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="pl-72">
+    <header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-xl z-40 px-space-lg flex items-center justify-between gap-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <div class="flex items-center gap-space-sm">
+        <span class="px-space-sm py-space-xs rounded-lg bg-surface-container-low font-label-md font-semibold text-on-surface flex items-center gap-1">
+          <span class="material-symbols-outlined text-primary text-[18px]">domain</span> Central Karachi Procurement Hub
+        </span>
+      </div>
+      <div class="flex items-center gap-space-sm">
+        <span class="text-body-sm text-secondary">MTD Purchases: <strong class="text-primary font-semibold">Rs. 4,720,400</strong></span>
+      </div>
+    </header>
+
+    <main class="w-full pt-16 bg-surface min-h-screen px-space-lg py-space-lg space-y-space-lg">
+      <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-md">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm font-semibold uppercase">Vendor Management</span>
+            <span class="text-secondary font-label-sm">• Karachi Distributors</span>
+          </div>
+          <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Supplier Purchases &amp; Inward POs</h1>
+          <p class="font-body-md text-body-md text-on-surface-variant">Manage FMCG distributors, issue Purchase Orders, and record Goods Received Notes (GRN).</p>
+        </div>
+        <button onclick="openPOModal()" class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container transition-colors flex items-center gap-1.5 shadow-md">
+          <span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+          <span>+ Create Purchase Order (PO)</span>
+        </button>
+      </div>
+
+      <!-- Vendor Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-surface-container-high space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-headline-sm font-semibold text-on-surface">Shan Foods Karachi</span>
+            <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed text-[11px] font-bold">Preferred</span>
+          </div>
+          <p class="text-xs text-secondary">Spices, Recipe Mixes, Pickles</p>
+          <div class="pt-2 border-t text-xs flex justify-between">
+            <span>Credit Term: <strong>15 Days</strong></span>
+            <span class="text-primary font-semibold">Active PO: Rs. 140,000</span>
+          </div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-surface-container-high space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-headline-sm font-semibold text-on-surface">Dalda Foods Corp</span>
+            <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed text-[11px] font-bold">Preferred</span>
+          </div>
+          <p class="text-xs text-secondary">Cooking Oil, Banaspati Ghee, Olive Oil</p>
+          <div class="pt-2 border-t text-xs flex justify-between">
+            <span>Credit Term: <strong>7 Days</strong></span>
+            <span class="text-primary font-semibold">Active PO: Rs. 420,000</span>
+          </div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-surface-container-high space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-headline-sm font-semibold text-on-surface">Engro Foods PK</span>
+            <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed text-[11px] font-bold">Direct Dairy</span>
+          </div>
+          <p class="text-xs text-secondary">Olper's Milk, Tarang, Dairy Omung</p>
+          <div class="pt-2 border-t text-xs flex justify-between">
+            <span>Credit Term: <strong>COD / Daily</strong></span>
+            <span class="text-primary font-semibold">Active PO: Rs. 185,000</span>
+          </div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-surface-container-high space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-headline-sm font-semibold text-on-surface">Tapal Tea Ltd</span>
+            <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed text-[11px] font-bold">Direct Hub</span>
+          </div>
+          <p class="text-xs text-secondary">Danedar, Mezban, Green Tea</p>
+          <div class="pt-2 border-t text-xs flex justify-between">
+            <span>Credit Term: <strong>30 Days</strong></span>
+            <span class="text-primary font-semibold">Active PO: Rs. 290,000</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent POs Table -->
+      <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md">
+        <h3 class="font-headline-md text-headline-md text-on-surface">Recent Purchase Orders &amp; Inward Invoices</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left font-table-cell">
+            <thead class="bg-surface-container-low text-secondary uppercase text-[11px] font-semibold">
+              <tr>
+                <th class="py-2.5 px-space-md">PO Number</th>
+                <th class="py-2.5 px-space-md">Supplier</th>
+                <th class="py-2.5 px-space-md">Order Date</th>
+                <th class="py-2.5 px-space-md">Items / Category</th>
+                <th class="py-2.5 px-space-md text-right">PO Total (PKR)</th>
+                <th class="py-2.5 px-space-md text-center">GRN Status</th>
+                <th class="py-2.5 px-space-md text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-surface-container">
+              <tr class="hover:bg-surface-container-low">
+                <td class="py-3 px-space-md font-mono font-semibold text-primary">PO-2024-089</td>
+                <td class="py-3 px-space-md font-semibold">Engro Foods PK</td>
+                <td class="py-3 px-space-md text-secondary">24 Oct 2024</td>
+                <td class="py-3 px-space-md">Olper's UHT Full Cream (50 cartons)</td>
+                <td class="py-3 px-space-md text-right font-semibold">Rs. 185,000</td>
+                <td class="py-3 px-space-md text-center"><span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-semibold text-xs">Received (GRN-442)</span></td>
+                <td class="py-3 px-space-md text-center"><button class="text-primary hover:underline font-semibold text-xs">View GRN</button></td>
+              </tr>
+              <tr class="hover:bg-surface-container-low">
+                <td class="py-3 px-space-md font-mono font-semibold text-primary">PO-2024-088</td>
+                <td class="py-3 px-space-md font-semibold">Dalda Foods Corp</td>
+                <td class="py-3 px-space-md text-secondary">22 Oct 2024</td>
+                <td class="py-3 px-space-md">Dalda 5L Tins &amp; Cooking Oil Pouch</td>
+                <td class="py-3 px-space-md text-right font-semibold">Rs. 420,000</td>
+                <td class="py-3 px-space-md text-center"><span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-semibold text-xs">In Transit (Delivery Van)</span></td>
+                <td class="py-3 px-space-md text-center"><button onclick="acceptGRN('PO-2024-088')" class="px-2 py-1 rounded bg-primary text-on-primary text-xs font-semibold">Accept GRN</button></td>
+              </tr>
+              <tr class="hover:bg-surface-container-low">
+                <td class="py-3 px-space-md font-mono font-semibold text-primary">PO-2024-087</td>
+                <td class="py-3 px-space-md font-semibold">Tapal Tea Ltd</td>
+                <td class="py-3 px-space-md text-secondary">20 Oct 2024</td>
+                <td class="py-3 px-space-md">Tapal Danedar 950g Pouches (120 units)</td>
+                <td class="py-3 px-space-md text-right font-semibold">Rs. 182,400</td>
+                <td class="py-3 px-space-md text-center"><span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-semibold text-xs">Stocked into Shelves</span></td>
+                <td class="py-3 px-space-md text-center"><button class="text-primary hover:underline font-semibold text-xs">Audit Batch</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- PO CREATE MODAL -->
+  <div id="po-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden p-4">
+    <div class="bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-lg p-space-lg space-y-space-md border border-surface-container-high">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h4 class="font-headline-md text-headline-md text-on-surface">Generate Supplier Purchase Order</h4>
+        <button onclick="closePOModal()" class="text-secondary hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      </div>
+      <div>
+        <label class="block font-label-md text-secondary mb-1">Select Registered Vendor</label>
+        <select class="w-full px-3 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary">
+          <option>Shan Foods Karachi (Spices &amp; Recipe Mixes)</option>
+          <option>Engro Foods PK (Dairy &amp; Chilled)</option>
+          <option>Dalda Foods Corp (Edible Oil &amp; Ghee)</option>
+          <option>Tapal Tea Ltd (Beverages &amp; FMCG)</option>
+          <option>Guard Agri Foods (Basmati Rice)</option>
+          <option>Dawn Bread Karachi (Fresh Bakery)</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block font-label-md text-secondary mb-1">Target Delivery Date</label>
+          <input type="date" value="2024-10-26" class="w-full px-3 py-2 rounded-xl bg-surface-container-low text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+        <div>
+          <label class="block font-label-md text-secondary mb-1">Payment Term</label>
+          <select class="w-full px-3 py-2 rounded-xl bg-surface-container-low text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary">
+            <option>15 Days Credit</option>
+            <option>Cash On Delivery (COD)</option>
+            <option>Advance Bank Wire</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block font-label-md text-secondary mb-1">Estimated Purchase Value (PKR)</label>
+        <input type="number" placeholder="e.g. 150000" class="w-full px-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-headline-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closePOModal()" class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md">Cancel</button>
+        <button onclick="confirmPO()" class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container">Dispatch PO to Vendor</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openPOModal() {
+      document.getElementById('po-modal').classList.remove('hidden');
+    }
+    function closePOModal() {
+      document.getElementById('po-modal').classList.add('hidden');
+    }
+    function confirmPO() {
+      alert('Purchase Order created and emailed to supplier dispatch team.');
+      closePOModal();
+    }
+    function acceptGRN(po) {
+      alert('Goods Received Note accepted for ' + po + '. Inventory quantities updated in Gulshan central warehouse.');
+    }
+  </script>
+</body>
+</html>

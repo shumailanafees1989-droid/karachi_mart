@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_dashboard" name="shell-type"/>
+  <title>Cash Register &amp; Shift Closing • Karachi Mart Retail ERP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #bccac0; border-radius: 4px; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#68dba9", "on-primary-fixed-variant": "#005137", "on-error": "#ffffff", "surface-bright": "#f8f9ff",
+            "secondary-fixed-dim": "#bec6e0", "on-tertiary": "#ffffff", "surface-dim": "#cbdbf5", "tertiary-fixed": "#ffdcc3",
+            "primary-container": "#00855d", "primary-fixed-dim": "#68dba9", "on-tertiary-container": "#fffbff", "on-background": "#0b1c30",
+            "primary-fixed": "#85f8c4", "secondary": "#565e74", "surface-container-lowest": "#ffffff", "outline": "#6d7a72",
+            "surface-tint": "#006c4a", "error": "#ba1a1a", "surface-container-low": "#eff4ff", "on-surface": "#0b1c30",
+            "on-surface-variant": "#3d4a42", "background": "#f8f9ff", "on-tertiary-fixed": "#2f1500", "error-container": "#ffdad6",
+            "surface": "#f8f9ff", "outline-variant": "#bccac0", "tertiary-fixed-dim": "#ffb77d", "surface-container": "#e5eeff",
+            "on-secondary-fixed": "#131b2e", "on-secondary-container": "#5c647a", "on-secondary": "#ffffff", "primary": "#006948",
+            "on-tertiary-fixed-variant": "#6e3900", "tertiary": "#8d4b00", "inverse-on-surface": "#eaf1ff", "secondary-fixed": "#dae2fd",
+            "tertiary-container": "#b15f00", "on-primary": "#ffffff", "surface-container-high": "#dce9ff", "inverse-surface": "#213145",
+            "on-error-container": "#93000a", "on-primary-fixed": "#002114", "on-secondary-fixed-variant": "#3f465c", "on-primary-container": "#f5fff7",
+            "surface-container-highest": "#d3e4fe", "surface-variant": "#d3e4fe", "secondary-container": "#dae2fd"
+          },
+          "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+          "spacing": { "space-xl": "2rem", "space-sm": "0.5rem", "gutter": "1rem", "margin-desktop": "2rem", "space-xs": "0.25rem", "space-lg": "1.25rem", "margin": "1rem", "space-md": "0.75rem", "gutter-desktop": "1.5rem" },
+          "fontFamily": {
+            "headline-md": ["Plus Jakarta Sans"], "label-md": ["Inter"], "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "body-sm": ["Inter"],
+            "body-md": ["Inter"], "table-cell": ["Inter"], "label-sm": ["Inter"],
+            "metric-stat": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
+  <!-- Sidebar -->
+  <aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col h-full overflow-hidden">
+      <div class="h-16 px-space-lg flex items-center gap-space-sm bg-surface-container-lowest">
+        <img alt="Karachi Mart Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ug5ATdt8sty-Z57VHDlmyJcZPV3abtXzkTylBvd7_p4bj26fclv8F50uTjNLuhsmCQhZqU0-K1C2fHwegN-j8TA7a_vJaCTrw7GHsJXmvA39YU2CCO_-5hN7vPtGurOFqHggS88hGxB0bukOaELDvoYpjLx0ARiv-FuK8g23x1FI5jefe1p2uu3yH9Ncx3J7HBIPR7ehlnqC8-I06kPf0AFrNz9yfilWIzS8kB-R_fiSYXsREFRCmc19xa"/>
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm text-primary leading-tight tracking-tight">Karachi Mart</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Retail ERP • Pakistan</span>
+        </div>
+      </div>
+      <div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-md">
+        <nav class="space-y-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm">
+          <div class="px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Main</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="overview-dashboard" href="index.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+              <span class="font-body-md text-body-md">Overview Dashboard</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="pos-sales" href="pos.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">point_of_sale</span>
+              <span class="font-body-md text-body-md">POS &amp; Sales</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">20 New</span>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="inventory-stock" href="inventory.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+              <span class="font-body-md text-body-md">Inventory &amp; Stock</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">4 Low</span>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Procurement &amp; Ops</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="supplier-purchases" href="suppliers.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+              <span class="font-body-md text-body-md">Supplier Purchases</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="cash-register-closing" href="cash-register.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+              <span class="font-body-md text-body-md">Cash Register &amp; Closing</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="deliveries-fleet" href="deliveries.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">two_wheeler</span>
+              <span class="font-body-md text-body-md">Deliveries &amp; Fleet</span>
+            </div>
+            <span class="px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">6 Active</span>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Management</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="customers-loyalty" href="customers.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">loyalty</span>
+              <span class="font-body-md text-body-md">Customers &amp; Loyalty</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="staff-attendance" href="staff.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">badge</span>
+              <span class="font-body-md text-body-md">Staff &amp; Attendance</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="expenses-pl" href="expenses.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+              <span class="font-body-md text-body-md">Expenses &amp; P&amp;L</span>
+            </div>
+          </a>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="reports-analytics" href="reports.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">analytics</span>
+              <span class="font-body-md text-body-md">Reports &amp; Analytics</span>
+            </div>
+          </a>
+          <div class="pt-space-sm px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-wider text-secondary">Developer &amp; System</div>
+          <a class="flex items-center justify-between px-space-md py-space-sm rounded-lg transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" data-path="database-supabase-schema" href="database.html">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px]">database</span>
+              <span class="font-body-md text-body-md">Database &amp; Schema</span>
+            </div>
+          </a>
+        </nav>
+      </div>
+      <div class="p-space-md bg-surface-container-lowest">
+        <div class="p-space-sm bg-surface-container-low rounded-xl flex items-center justify-between">
+          <div class="flex items-center gap-space-sm">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+            </span>
+            <div class="flex flex-col">
+              <span class="font-label-sm text-label-sm text-on-surface font-semibold">Cash Drawer #01</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">Reconciled • Shift Open</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[18px] text-primary">account_balance_wallet</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="pl-72">
+    <!-- Header -->
+    <header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-xl z-40 px-space-lg flex items-center justify-between gap-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <div class="flex items-center gap-space-sm min-w-max">
+        <span class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container-low text-on-surface">
+          <span class="material-symbols-outlined text-primary text-[18px]">store</span>
+          <span class="font-label-md text-label-md font-semibold">Gulshan Branch #01 • Cash Desk</span>
+        </span>
+      </div>
+      <div class="flex items-center gap-space-sm">
+        <div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low">
+          <span class="h-2 w-2 rounded-full bg-primary"></span>
+          <span class="font-label-sm text-label-sm text-on-surface font-medium">Status: <strong class="text-primary font-semibold">Shift #4029 OPEN</strong></span>
+        </div>
+        <div class="flex items-center gap-space-xs pl-space-xs">
+          <img alt="Manager" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARimlaMxRES1rBWflHmZPiWzMxRbcWDUezNNEURcyCwCSU8WMtrp8zj2Is0xd47IhDNV3jbu9oOz6lsrfp9OsqSrkENF8IXsKkNtO9FNAcHVszAoHPPiHFFrpPBiFOXMxF2gLNT5rNIl1HhJ11au12QSuqOcheKs4AfHrx9oW3zPHA98K6SrWIp_J9VmtxuI5gZzZmbD9Rv4US9MuW_5Xqut7oBwQFGf_JffkrGEFdi-_NqDHY1SHD8g"/>
+          <div class="hidden md:flex flex-col text-left">
+            <span class="font-label-md text-label-md font-semibold text-on-surface leading-tight">Muhammad Ahmed</span>
+            <span class="font-label-sm text-label-sm text-primary">Shift Custodian</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="w-full pt-16 bg-surface min-h-screen px-space-lg py-space-lg space-y-space-lg">
+      <!-- Title & Action Command Bar -->
+      <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-md">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm font-semibold uppercase">Daily Cash Desk</span>
+            <span class="text-secondary font-label-sm">• Terminal POS #01</span>
+          </div>
+          <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Cash Register &amp; Shift Reconciliation</h1>
+          <p class="font-body-md text-body-md text-on-surface-variant">Perform physical blind drops, record denomination counts in PKR, and print Day-End Z-Reports.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-space-sm">
+          <button onclick="openBlindDropModal()" class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md hover:bg-surface-container-high transition-colors flex items-center gap-1.5 shadow-sm">
+            <span class="material-symbols-outlined text-[18px] text-primary">security</span>
+            <span>Record Blind Cash Drop</span>
+          </button>
+          <button onclick="openZReportModal()" class="px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container transition-colors flex items-center gap-1.5 shadow-md">
+            <span class="material-symbols-outlined text-[18px]">lock_clock</span>
+            <span>Close Shift &amp; Generate Z-Report</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards (4 Cards) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-label-md text-secondary block mb-1">Morning Opening Float</span>
+          <span class="font-metric-stat text-metric-stat text-on-surface font-bold">Rs. 25,000</span>
+          <div class="mt-2 text-body-sm text-secondary">Verified at 08:00 AM PKT</div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-label-md text-secondary block mb-1">Shift Cash Inflow (Gross)</span>
+          <span class="font-metric-stat text-metric-stat text-primary font-bold">+ Rs. 165,400</span>
+          <div class="mt-2 text-body-sm text-secondary">186 Walk-in cash transactions</div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-label-md text-secondary block mb-1">Petty Cash &amp; Supplier COD</span>
+          <span class="font-metric-stat text-metric-stat text-error font-bold">- Rs. 17,150</span>
+          <div class="mt-2 text-body-sm text-secondary">Dawn Bread COD &amp; customer returns</div>
+        </div>
+        <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+          <span class="font-label-md text-label-md text-secondary block mb-1">Expected Physical Cash in Drawer</span>
+          <span class="font-metric-stat text-metric-stat text-primary font-bold" id="kpi-expected-drawer">Rs. 173,250</span>
+          <div class="mt-2 text-body-sm text-primary font-semibold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">verified</span> System In Balance
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Denominations Calculator & Reconciliation Ledger -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+        <!-- Pakistani Currency Denomination Count Tool (7 cols) -->
+        <div class="lg:col-span-7 bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md">
+          <div class="flex items-center justify-between border-b border-surface-container pb-space-sm">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-[24px]">calculate</span>
+              <div>
+                <h3 class="font-headline-md text-headline-md text-on-surface">Physical Cash Denomination Counter</h3>
+                <p class="font-body-sm text-body-sm text-secondary">Count the Pakistani currency notes physically in the drawer.</p>
+              </div>
+            </div>
+            <button onclick="resetDenominations()" class="text-secondary hover:text-on-surface text-label-sm font-label-sm flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">restart_alt</span> Reset
+            </button>
+          </div>
+
+          <!-- Denomination Rows -->
+          <div class="space-y-2">
+            <div class="grid grid-cols-12 items-center gap-2 font-label-sm text-secondary uppercase pb-1">
+              <span class="col-span-4">Currency Note</span>
+              <span class="col-span-4 text-center">Physical Count (Pieces)</span>
+              <span class="col-span-4 text-right">Subtotal (PKR)</span>
+            </div>
+
+            <!-- Rs. 5000 -->
+            <div class="grid grid-cols-12 items-center gap-2 p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+              <div class="col-span-4 flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-amber-100 text-amber-900 border border-amber-300">Rs. 5,000</span>
+                <span class="font-body-sm text-secondary text-xs">Quaid-e-Azam</span>
+              </div>
+              <div class="col-span-4 flex items-center justify-center">
+                <input id="note-5000" oninput="calculateDenominations()" type="number" min="0" value="20" class="w-24 text-center py-1 rounded bg-surface-container-lowest font-headline-sm font-semibold border border-surface-container-high focus:outline-none focus:ring-1 focus:ring-primary"/>
+              </div>
+              <span id="tot-5000" class="col-span-4 text-right font-headline-sm font-semibold text-on-surface">Rs. 100,000</span>
+            </div>
+
+            <!-- Rs. 1000 -->
+            <div class="grid grid-cols-12 items-center gap-2 p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+              <div class="col-span-4 flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-blue-100 text-blue-900 border border-blue-300">Rs. 1,000</span>
+                <span class="font-body-sm text-secondary text-xs">Standard</span>
+              </div>
+              <div class="col-span-4 flex items-center justify-center">
+                <input id="note-1000" oninput="calculateDenominations()" type="number" min="0" value="52" class="w-24 text-center py-1 rounded bg-surface-container-lowest font-headline-sm font-semibold border border-surface-container-high focus:outline-none focus:ring-1 focus:ring-primary"/>
+              </div>
+              <span id="tot-1000" class="col-span-4 text-right font-headline-sm font-semibold text-on-surface">Rs. 52,000</span>
+            </div>
+
+            <!-- Rs. 500 -->
+            <div class="grid grid-cols-12 items-center gap-2 p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+              <div class="col-span-4 flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-emerald-100 text-emerald-900 border border-emerald-300">Rs. 500</span>
+                <span class="font-body-sm text-secondary text-xs">Green Note</span>
+              </div>
+              <div class="col-span-4 flex items-center justify-center">
+                <input id="note-500" oninput="calculateDenominations()" type="number" min="0" value="30" class="w-24 text-center py-1 rounded bg-surface-container-lowest font-headline-sm font-semibold border border-surface-container-high focus:outline-none focus:ring-1 focus:ring-primary"/>
+              </div>
+              <span id="tot-500" class="col-span-4 text-right font-headline-sm font-semibold text-on-surface">Rs. 15,000</span>
+            </div>
+
+            <!-- Rs. 100 -->
+            <div class="grid grid-cols-12 items-center gap-2 p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+              <div class="col-span-4 flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-red-100 text-red-900 border border-red-300">Rs. 100</span>
+                <span class="font-body-sm text-secondary text-xs">Red Note</span>
+              </div>
+              <div class="col-span-4 flex items-center justify-center">
+                <input id="note-100" oninput="calculateDenominations()" type="number" min="0" value="50" class="w-24 text-center py-1 rounded bg-surface-container-lowest font-headline-sm font-semibold border border-surface-container-high focus:outline-none focus:ring-1 focus:ring-primary"/>
+              </div>
+              <span id="tot-100" class="col-span-4 text-right font-headline-sm font-semibold text-on-surface">Rs. 5,000</span>
+            </div>
+
+            <!-- Rs. 50 -->
+            <div class="grid grid-cols-12 items-center gap-2 p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+              <div class="col-span-4 flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-purple-100 text-purple-900 border border-purple-300">Rs. 50</span>
+                <span class="font-body-sm text-secondary text-xs">Purple Note</span>
+              </div>
+              <div class="col-span-4 flex items-center justify-center">
+                <input id="note-50" oninput="calculateDenominations()" type="number" min="0" value="20" class="w-24 text-center py-1 rounded bg-surface-container-lowest font-headline-sm font-semibold border border-surface-container-high focus:outline-none focus:ring-1 focus:ring-primary"/>
+              </div>
+              <span id="tot-50" class="col-span-4 text-right font-headline-sm font-semibold text-on-surface">Rs. 1,000</span>
+            </div>
+
+            <!-- Rs. 20 -->
+            <div class="grid grid-cols-12 items-center gap-2 p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+              <div class="col-span-4 flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-orange-100 text-orange-900 border border-orange-300">Rs. 20</span>
+                <span class="font-body-sm text-secondary text-xs">Orange Note</span>
+              </div>
+              <div class="col-span-4 flex items-center justify-center">
+                <input id="note-20" oninput="calculateDenominations()" type="number" min="0" value="10" class="w-24 text-center py-1 rounded bg-surface-container-lowest font-headline-sm font-semibold border border-surface-container-high focus:outline-none focus:ring-1 focus:ring-primary"/>
+              </div>
+              <span id="tot-20" class="col-span-4 text-right font-headline-sm font-semibold text-on-surface">Rs. 200</span>
+            </div>
+
+            <!-- Rs. 10 -->
+            <div class="grid grid-cols-12 items-center gap-2 p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+              <div class="col-span-4 flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-green-100 text-green-900 border border-green-300">Rs. 10</span>
+                <span class="font-body-sm text-secondary text-xs">Green Note</span>
+              </div>
+              <div class="col-span-4 flex items-center justify-center">
+                <input id="note-10" oninput="calculateDenominations()" type="number" min="0" value="5" class="w-24 text-center py-1 rounded bg-surface-container-lowest font-headline-sm font-semibold border border-surface-container-high focus:outline-none focus:ring-1 focus:ring-primary"/>
+              </div>
+              <span id="tot-10" class="col-span-4 text-right font-headline-sm font-semibold text-on-surface">Rs. 50</span>
+            </div>
+          </div>
+
+          <!-- Total Counted Banner -->
+          <div class="pt-space-md border-t border-surface-container flex items-center justify-between bg-primary-fixed/20 p-space-md rounded-xl">
+            <div>
+              <span class="font-label-sm text-secondary uppercase font-semibold">Total Physical Cash Counted</span>
+              <div class="font-metric-stat text-metric-stat text-primary font-bold" id="total-counted-display">Rs. 173,250</div>
+            </div>
+            <div class="text-right">
+              <span class="font-label-sm text-secondary block font-semibold">Discrepancy / Variance</span>
+              <span id="discrepancy-status" class="px-3 py-1 rounded-full font-label-md font-bold bg-primary-fixed text-on-primary-fixed">Rs. 0 (Balanced)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cash Reconciliation Ledger (5 cols) -->
+        <div class="lg:col-span-5 bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-space-sm">
+              <span class="material-symbols-outlined text-primary text-[24px]">receipt_long</span>
+              <h3 class="font-headline-md text-headline-md text-on-surface">Shift Reconciliation Ledger</h3>
+            </div>
+            <p class="font-body-sm text-secondary mb-space-md">Real-time audit log of shift transactions and authorized cash drawer movements.</p>
+
+            <div class="space-y-space-xs font-body-sm text-body-sm">
+              <div class="flex justify-between py-1.5 border-b border-surface-container">
+                <span class="text-secondary">Opening Float (08:00 AM)</span>
+                <span class="font-semibold">Rs. 25,000</span>
+              </div>
+              <div class="flex justify-between py-1.5 border-b border-surface-container text-primary">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">add_circle</span> POS Cash Sales</span>
+                <span class="font-semibold">+ Rs. 165,400</span>
+              </div>
+              <div class="flex justify-between py-1.5 border-b border-surface-container text-secondary">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">qr_code</span> Raast Instant (Bank)</span>
+                <span class="font-semibold">Rs. 64,150 (Direct Bank)</span>
+              </div>
+              <div class="flex justify-between py-1.5 border-b border-surface-container text-secondary">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">credit_card</span> HBL POS Terminal</span>
+                <span class="font-semibold">Rs. 55,000 (Settled)</span>
+              </div>
+              <div class="flex justify-between py-1.5 border-b border-surface-container text-error">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">remove_circle</span> Dawn Van Bread COD</span>
+                <span class="font-semibold">- Rs. 14,200</span>
+              </div>
+              <div class="flex justify-between py-1.5 border-b border-surface-container text-tertiary">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">undo</span> Customer Refund (Expired Jam)</span>
+                <span class="font-semibold">- Rs. 2,950</span>
+              </div>
+              <div class="flex justify-between py-2 font-headline-sm text-headline-sm text-on-surface font-bold bg-surface-container-low px-2 rounded-lg mt-2">
+                <span>Net Drawer Balance</span>
+                <span class="text-primary">Rs. 173,250</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Blind Drops Feed -->
+          <div class="p-space-md rounded-xl bg-surface-container-low space-y-2">
+            <span class="font-label-md font-semibold text-on-surface flex items-center justify-between">
+              <span>Shift Blind Drops Record</span>
+              <span class="text-xs text-secondary">Manager Vault Safe</span>
+            </span>
+            <div class="flex items-center justify-between text-body-sm p-2 bg-surface-container-lowest rounded-lg">
+              <div>
+                <span class="font-semibold text-on-surface">Drop #01 (13:00 PKT)</span>
+                <span class="text-xs text-secondary block">Collected by Manager Farhan</span>
+              </div>
+              <span class="font-headline-sm font-semibold text-primary">Rs. 100,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Historical Shift Closings Table -->
+      <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md">
+        <h3 class="font-headline-md text-headline-md text-on-surface">Recent Shift Closings &amp; Z-Reports</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left font-table-cell">
+            <thead class="bg-surface-container-low text-secondary uppercase text-[11px] font-semibold">
+              <tr>
+                <th class="py-2.5 px-space-md">Shift #</th>
+                <th class="py-2.5 px-space-md">Date &amp; Hours</th>
+                <th class="py-2.5 px-space-md">Cashier / Custodian</th>
+                <th class="py-2.5 px-space-md text-right">Opening Float</th>
+                <th class="py-2.5 px-space-md text-right">Cash Collected</th>
+                <th class="py-2.5 px-space-md text-right">Closing Drawer</th>
+                <th class="py-2.5 px-space-md text-center">Variance</th>
+                <th class="py-2.5 px-space-md text-center">Audit Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-surface-container">
+              <tr class="hover:bg-surface-container-low">
+                <td class="py-3 px-space-md font-mono font-semibold text-primary">SHIFT-4028</td>
+                <td class="py-3 px-space-md">23 Oct • 16:00 - 23:30</td>
+                <td class="py-3 px-space-md">Tariq Mehmood</td>
+                <td class="py-3 px-space-md text-right">Rs. 25,000</td>
+                <td class="py-3 px-space-md text-right">Rs. 210,400</td>
+                <td class="py-3 px-space-md text-right font-semibold">Rs. 210,400</td>
+                <td class="py-3 px-space-md text-center"><span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-semibold text-xs">Rs. 0</span></td>
+                <td class="py-3 px-space-md text-center"><span class="px-2 py-0.5 rounded bg-primary-container text-on-primary-container text-xs font-semibold">Approved</span></td>
+              </tr>
+              <tr class="hover:bg-surface-container-low">
+                <td class="py-3 px-space-md font-mono font-semibold text-primary">SHIFT-4027</td>
+                <td class="py-3 px-space-md">23 Oct • 08:00 - 16:00</td>
+                <td class="py-3 px-space-md">Muhammad Ahmed</td>
+                <td class="py-3 px-space-md text-right">Rs. 25,000</td>
+                <td class="py-3 px-space-md text-right">Rs. 184,200</td>
+                <td class="py-3 px-space-md text-right font-semibold">Rs. 184,150</td>
+                <td class="py-3 px-space-md text-center"><span class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-semibold text-xs">- Rs. 50</span></td>
+                <td class="py-3 px-space-md text-center"><span class="px-2 py-0.5 rounded bg-primary-container text-on-primary-container text-xs font-semibold">Approved</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- BLIND DROP MODAL -->
+  <div id="blind-drop-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden p-4">
+    <div class="bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-md p-space-lg space-y-space-md border border-surface-container-high">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h4 class="font-headline-md text-headline-md text-on-surface">Record Blind Safe Drop</h4>
+        <button onclick="closeBlindDropModal()" class="text-secondary hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      </div>
+      <div>
+        <label class="block font-label-md text-label-md text-secondary mb-1">Drop Amount (PKR)</label>
+        <input id="drop-amount-input" type="number" placeholder="e.g. 50000" class="w-full px-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-headline-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+      </div>
+      <div>
+        <label class="block font-label-md text-label-md text-secondary mb-1">Receiving Manager / Vault Keyholder</label>
+        <select class="w-full px-3 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary">
+          <option>Farhan Siddiqui (Floor Manager)</option>
+          <option>Ali Raza (Audit Head)</option>
+        </select>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeBlindDropModal()" class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md">Cancel</button>
+        <button onclick="confirmDrop()" class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container">Authorize Drop</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Z-REPORT PREVIEW MODAL -->
+  <div id="zreport-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden p-4">
+    <div class="bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-sm p-space-md space-y-space-sm border border-surface-container-high">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h4 class="font-headline-md text-headline-md text-on-surface flex items-center gap-1">
+          <span class="material-symbols-outlined text-primary text-[20px]">print</span> Day-End Z-Report
+        </h4>
+        <button onclick="closeZReportModal()" class="text-secondary hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      </div>
+      <div class="bg-white p-3 font-mono text-[11px] leading-tight text-gray-800 border border-gray-300 rounded space-y-2">
+        <div class="text-center">
+          <strong class="text-[13px] block">KARACHI MART - Z-REPORT</strong>
+          <span>Gulshan Branch #01 • Shift #4029</span>
+          <span class="block">Closed: 24-Oct-2024 23:00 PKT</span>
+        </div>
+        <div class="border-t border-b border-dashed border-gray-400 py-1 space-y-0.5">
+          <div class="flex justify-between"><span>Gross Sales:</span><span>Rs. 284,550</span></div>
+          <div class="flex justify-between"><span>Cash Collected:</span><span>Rs. 165,400</span></div>
+          <div class="flex justify-between"><span>Raast Instant:</span><span>Rs. 64,150</span></div>
+          <div class="flex justify-between"><span>Card Terminals:</span><span>Rs. 55,000</span></div>
+          <div class="flex justify-between"><span>Discounts:</span><span>Rs. 4,200</span></div>
+          <div class="flex justify-between"><span>PRA GST:</span><span>Rs. 5,690</span></div>
+        </div>
+        <div class="space-y-0.5">
+          <div class="flex justify-between font-bold"><span>DRAWER RECONCILED:</span><span>Rs. 173,250</span></div>
+          <div class="flex justify-between"><span>CASH DROPS TO SAFE:</span><span>Rs. 100,000</span></div>
+          <div class="flex justify-between"><span>CLOSING FLOAT LEFT:</span><span>Rs. 25,000</span></div>
+          <div class="flex justify-between text-green-700 font-bold"><span>DISCREPANCY:</span><span>Rs. 0 (ZERO)</span></div>
+        </div>
+        <div class="text-center pt-2 text-[9px] text-gray-500">
+          MANAGER SIGNATURE: ____________________
+        </div>
+      </div>
+      <div class="flex gap-2 pt-2">
+        <button onclick="window.print()" class="flex-1 py-2 rounded bg-surface-container font-label-md">Print Z-Report</button>
+        <button onclick="closeShiftDone()" class="flex-1 py-2 rounded bg-primary text-on-primary font-label-md font-semibold hover:bg-primary-container">Close Shift</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function calculateDenominations() {
+      const n5000 = parseInt(document.getElementById('note-5000').value) || 0;
+      const n1000 = parseInt(document.getElementById('note-1000').value) || 0;
+      const n500 = parseInt(document.getElementById('note-500').value) || 0;
+      const n100 = parseInt(document.getElementById('note-100').value) || 0;
+      const n50 = parseInt(document.getElementById('note-50').value) || 0;
+      const n20 = parseInt(document.getElementById('note-20').value) || 0;
+      const n10 = parseInt(document.getElementById('note-10').value) || 0;
+
+      const tot5000 = n5000 * 5000;
+      const tot1000 = n1000 * 1000;
+      const tot500 = n500 * 500;
+      const tot100 = n100 * 100;
+      const tot50 = n50 * 50;
+      const tot20 = n20 * 20;
+      const tot10 = n10 * 10;
+
+      document.getElementById('tot-5000').innerText = 'Rs. ' + tot5000.toLocaleString();
+      document.getElementById('tot-1000').innerText = 'Rs. ' + tot1000.toLocaleString();
+      document.getElementById('tot-500').innerText = 'Rs. ' + tot500.toLocaleString();
+      document.getElementById('tot-100').innerText = 'Rs. ' + tot100.toLocaleString();
+      document.getElementById('tot-50').innerText = 'Rs. ' + tot50.toLocaleString();
+      document.getElementById('tot-20').innerText = 'Rs. ' + tot20.toLocaleString();
+      document.getElementById('tot-10').innerText = 'Rs. ' + tot10.toLocaleString();
+
+      const totalCounted = tot5000 + tot1000 + tot500 + tot100 + tot50 + tot20 + tot10;
+      document.getElementById('total-counted-display').innerText = 'Rs. ' + totalCounted.toLocaleString();
+
+      const expected = 173250;
+      const diff = totalCounted - expected;
+      const statusEl = document.getElementById('discrepancy-status');
+      if (diff === 0) {
+        statusEl.innerText = 'Rs. 0 (Balanced)';
+        statusEl.className = 'px-3 py-1 rounded-full font-label-md font-bold bg-primary-fixed text-on-primary-fixed';
+      } else if (diff > 0) {
+        statusEl.innerText = '+ Rs. ' + diff.toLocaleString() + ' (Over)';
+        statusEl.className = 'px-3 py-1 rounded-full font-label-md font-bold bg-secondary-fixed text-on-secondary-fixed';
+      } else {
+        statusEl.innerText = '- Rs. ' + Math.abs(diff).toLocaleString() + ' (Short)';
+        statusEl.className = 'px-3 py-1 rounded-full font-label-md font-bold bg-error-container text-on-error-container';
+      }
+    }
+
+    function resetDenominations() {
+      ['5000','1000','500','100','50','20','10'].forEach(n => {
+        document.getElementById('note-' + n).value = 0;
+      });
+      calculateDenominations();
+    }
+
+    function openBlindDropModal() {
+      document.getElementById('blind-drop-modal').classList.remove('hidden');
+    }
+
+    function closeBlindDropModal() {
+      document.getElementById('blind-drop-modal').classList.add('hidden');
+    }
+
+    function confirmDrop() {
+      const amt = document.getElementById('drop-amount-input').value;
+      if (!amt || amt <= 0) return alert('Please enter a valid drop amount.');
+      alert('Blind drop of PKR ' + parseInt(amt).toLocaleString() + ' logged and transferred to Vault.');
+      closeBlindDropModal();
+    }
+
+    function openZReportModal() {
+      document.getElementById('zreport-modal').classList.remove('hidden');
+    }
+
+    function closeZReportModal() {
+      document.getElementById('zreport-modal').classList.add('hidden');
+    }
+
+    function closeShiftDone() {
+      alert('Shift #4029 closed and Z-Report dispatched to Central ERP.');
+      closeZReportModal();
+    }
+  </script>
+</body>
+</html>
